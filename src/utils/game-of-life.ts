@@ -16,7 +16,7 @@ export function getNeighbors(i: number, j: number, cells: CellStatus[][]) {
     [i, j - 1], // left
     [i, j + 1], // right
   ].filter(([x, y]) => ( // this will filter out non-existing cells
-    x > 0 && x < rowsCount && y > 0 && y < columnsCount
+    x >= 0 && x < rowsCount && y >= 0 && y < columnsCount
   ));
 
   return neighborPositions.map(([x, y]) => cells[x][y]);
@@ -24,7 +24,7 @@ export function getNeighbors(i: number, j: number, cells: CellStatus[][]) {
 
 export function getNextState(cells: CellStatus[][]) {
   return cells.map((row, i) => {
-    return row.map((_, j) => {
+    return row.map((cell, j) => {
       const neighbors = getNeighbors(i, j, cells);
 
       const countAliveNeighbors = neighbors
@@ -34,7 +34,10 @@ export function getNextState(cells: CellStatus[][]) {
       if (countAliveNeighbors < 2 || countAliveNeighbors > 3) {
         return CellStatus.dead;
       }
-      return CellStatus.alive;
+      if (countAliveNeighbors === 3) {
+        return CellStatus.alive;
+      }
+      return cell;
     });
   });
 }

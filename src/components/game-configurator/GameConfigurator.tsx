@@ -48,7 +48,6 @@ export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
   }, [dispatch]);
 
   const onStartGame = useCallback(() => {
-    console.log('oh');
     dispatch(setStatus(GameStatus.paused));
   }, [dispatch]);
 

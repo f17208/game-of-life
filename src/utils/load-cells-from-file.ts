@@ -39,8 +39,6 @@ export function loadFromFileContent(content: string) {
     generation,
     cells,
   };
-  // eslint-disable-next-line
-  console.log('configuration', configuration);
 
   return configuration;
 }

@@ -12,6 +12,7 @@ import {
   statusSelector,
   nextState,
   setStatus,
+  generationCountSelector,
 } from '../common/GameState.slice';
 
 export type GameRunnerProps = {};
@@ -21,6 +22,7 @@ export const GameRunner: FC<GameRunnerProps> = () => {
   const cellSize = useSelector(cellSizeSelector);
   const cells = useSelector(cellsSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
+  const generationCount = useSelector(generationCountSelector);
   const isPlaying = gameStatus === GameStatus.playing;
 
   const dispatch = useDispatch();
@@ -84,6 +86,9 @@ export const GameRunner: FC<GameRunnerProps> = () => {
         cells={cells}
         onClickCell={onClickCell}
       />
+      <div>
+        generation #{generationCount}
+      </div>
     </div>
   );
 };

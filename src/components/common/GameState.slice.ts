@@ -21,7 +21,7 @@ export type GameConfig = {
 
 const initialState: GameConfig = {
   cellSize: 48,
-  updateEveryMs: 1000,
+  updateEveryMs: 500,
   cells: [[]],
   status: GameStatus.stopped,
   generationCount: 0,
@@ -76,6 +76,7 @@ export const gameStateSlice = createSlice({
     },
     nextState: (state, action: PayloadAction<CellStatus[][]>) => {
       state.cells = getNextState(action.payload);
+      state.generationCount += 1;
     },
     setUpdateEveryMs: (state, action: PayloadAction<number>) => {
       state.updateEveryMs = action.payload;
