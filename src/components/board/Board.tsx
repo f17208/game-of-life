@@ -1,5 +1,5 @@
-import { FC, useMemo } from 'react';
-import { Cell, CellProps } from '../cell/Cell';
+import { FC } from 'react';
+import { Cell, CellPosition, CellStatus } from '../cell/Cell';
 
 export type BoardDimensions = {
   x: number;
@@ -7,23 +7,24 @@ export type BoardDimensions = {
 }
 
 export type BoardProps = {
-  dimensions: BoardDimensions;
+  state: CellStatus[][];
+  cellSize: number;
+  onCellClick: (position: CellPosition, state: CellStatus) => void;
 };
 
-export const Board: FC<BoardProps> = ({ dimensions }) => {
-
-  const { x: sizeX, y: sizeY } = dimensions;
-
-  const cellsConfiguration = useMemo(() => {
-    const toReturn : CellProps[] = [];
-    return toReturn;
-  }, [sizeX, sizeY])
-
+export const Board: FC<BoardProps> = ({ state, cellSize, onCellClick }) => {
   return (
     <div>
       {
-        cellsConfiguration.map((cell, x) => {
-          return <Cell {...cell} />
+        state.map((row, x) => {
+          return row.map((CellStatus, y) => {
+            return <Cell
+              size={cellSize}
+              position={{ x, y }}
+              state={CellStatus}
+              onClick={onCellClick}
+            />;
+          });
         })
       }
     </div>

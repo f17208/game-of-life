@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-export enum CellState {
+export enum CellStatus {
   alive = 'alive',
   dead = 'dead',
 }
@@ -12,13 +12,15 @@ export type CellPosition = {
 
 export type CellProps = {
   position: CellPosition;
-  state: CellState;
+  size: number;
+  state: CellStatus;
+  onClick: (position: CellPosition, state: CellStatus) => void;
 };
 
-export const Cell: FC<CellProps> = ({ position, state }) => {
+export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
   return (
-    <div>
+    <button type="button" onClick={() => onClick(position, state)}>
       ({position.x}, {position.y})
-    </div>
+    </button>
   );
 };
