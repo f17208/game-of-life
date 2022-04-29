@@ -1,0 +1,71 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "plugin:react/recommended",
+      "airbnb"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "import/no-unresolved": "off",
+      "import/extensions": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-filename-extension": [
+        2,
+        {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      ],
+      "object-curly-newline": "off",
+      "no-param-reassign": 1,
+      "arrow-parens": "off",
+      "react/jsx-one-expression-per-line": "off",
+      "react/function-component-definition": "off",
+      "arrow-body-style": "off",
+      "react/jsx-wrap-multilines": "off",
+      "jsx-a11y/label-has-associated-control": "off",
+      "react/jsx-closing-tag-location": "off",
+      "react/require-default-props": "off",
+      "react/jsx-props-no-spreading": "off",
+      "import/prefer-default-export": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "src/**/*.slice.ts"
+        ],
+        "rules": {
+          "no-param-reassign": "off"
+        }
+      },
+      {
+        "files": [
+          "src/**/*.test.{ts,tsx}"
+        ],
+        "rules": {
+          "no-undef": "off"
+        }
+      }
+    ],
+    "globals": {
+      "JSX": true
+    }
+}
