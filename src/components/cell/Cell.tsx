@@ -23,6 +23,7 @@ export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
       ? CellStatus.dead
       : CellStatus.alive;
   }, [state]);
+
   return (
     <button
       type="button"
@@ -31,7 +32,6 @@ export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
         width: size,
         height: size,
         background: state === CellStatus.alive ? 'black' : 'white',
-        mixBlendMode: 'difference',
       }}
     />
   );

@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadFromFileContent } from '../../utils/load-cells-from-file';
 import { Board } from '../board/Board';
 import { CellPosition, CellStatus } from '../cell/Cell';
-import { setGenerationCount } from '../game-runner/GameRunner.slice';
-import {
+import { GameStatus, setGenerationCount, setStatus,
   cellSizeSelector,
   GameConfig,
   cellsSelector,
@@ -14,7 +13,7 @@ import {
   setUpdateEveryMs,
   updateEveryMsSelector,
   setIntoCells,
-} from './GameConfigurator.slice';
+} from '../common/GameState.slice';
 
 export type GameConfiguratorProps = {
   onComplete: (gameConfig: GameConfig) => void;
@@ -48,6 +47,16 @@ export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
     }
   }, [dispatch]);
 
+  const onStartGame = useCallback(() => {
+    console.log('oh');
+    dispatch(setStatus(GameStatus.paused));
+  }, [dispatch]);
+
+  // can start game if has any cells
+  const canStartGame = cells.flatMap(
+    rows => rows.map(cell => cell),
+  ).length > 0;
+
   return (
     <div>
       <h4>Configure game</h4>
@@ -76,6 +85,17 @@ export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
             onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
           />
         </div>
+
+        {canStartGame && (
+          <div>
+            <button
+              type="button"
+              onClick={onStartGame}
+            >
+              Start game!
+            </button>
+          </div>
+        )}
       </div>
 
       <Board

@@ -2,8 +2,9 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { GameConfigurator } from './components/game-configurator/GameConfigurator';
+import { GameRunner } from './components/game-runner/GameRunner';
 // import { GameRunner } from './components/game-runner/GameRunner';
-import { GameRunnerStatus, setStatus, statusSelector } from './components/game-runner/GameRunner.slice';
+import { GameStatus, setStatus, statusSelector } from './components/common/GameState.slice';
 
 function App() {
   const gameStatus = useSelector(statusSelector);
@@ -11,15 +12,15 @@ function App() {
   const dispatch = useDispatch();
 
   const onCompleteConfiguration = useCallback(() => {
-    dispatch(setStatus(GameRunnerStatus.paused));
+    dispatch(setStatus(GameStatus.paused));
   }, [dispatch]);
 
   return (
     <div>
       {
-        gameStatus === GameRunnerStatus.stopped
+        gameStatus === GameStatus.stopped
           ? <GameConfigurator onComplete={onCompleteConfiguration} />
-          : null
+          : <GameRunner />
       }
     </div>
   );
