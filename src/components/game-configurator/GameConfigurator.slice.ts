@@ -1,25 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app.store';
-import { CellPosition, CellStatus } from '../cell/Cell';
+import { Cell, CellPosition, CellStatus } from '../cell/Cell';
 
 export type GameConfig = {
-  dimensions: {
-    rowsCount: number;
-    columnsCount: number;
-  };
-  initialState: CellStatus[][];
+  cells: CellStatus[][];
   cellSize: number;
   updateEveryMs: number; // number of milliseconds between a state update and the next
 }
 
 const initialState: GameConfig = {
-  dimensions: {
-    rowsCount: 10,
-    columnsCount: 10,
-  },
-  cellSize: 24,
+  cellSize: 48,
   updateEveryMs: 1000,
-  initialState: [],
+  cells: [[]],
 };
 
 export type SetDimensionsInput = {
@@ -27,29 +19,47 @@ export type SetDimensionsInput = {
   columnsCount: number,
 }
 
-export type SetIntoInitialStateInput = {
+export type SetIntoCellsInput = {
   position: CellPosition;
   status: CellStatus;
 };
 
-export type SetInitialStateInput = CellStatus[][];
+export type SetCellsInput = CellStatus[][];
 
 export const gameConfiguratorSlice = createSlice({
   name: 'GameConfigurator',
   initialState,
   reducers: {
     setDimensions: (state, action: PayloadAction<SetDimensionsInput>) => {
-      state.dimensions = action.payload;
+      const { rowsCount, columnsCount } = action.payload;
+      const newCells = new Array(rowsCount) // initialize rowsCount rows
+        .fill(
+          new Array(columnsCount).fill(CellStatus.dead), // fill all with dead cells
+        );
+
+      // copy old values (if possible in new board configuration)
+      state.cells.forEach((row, i) => {
+        row.forEach((cell, j) => {
+          if (i < newCells.length && j < newCells[i].length) {
+            newCells[i][j] = state.cells[i][j];
+          }
+        });
+      });
+
+      state.cells = newCells;
     },
-    setIntoInitialState: (state, action: PayloadAction<SetIntoInitialStateInput>) => {
+    setIntoCells: (state, action: PayloadAction<SetIntoCellsInput>) => {
       const { status, position: { x, y } } = action.payload;
-      state.initialState[x][y] = status;
+      state.cells[x][y] = status;
     },
-    setInitialState: (state, action: PayloadAction<SetInitialStateInput>) => {
-      state.initialState = action.payload;
+    setCells: (state, action: PayloadAction<SetCellsInput>) => {
+      state.cells = action.payload;
     },
     setUpdateEveryMs: (state, action: PayloadAction<number>) => {
       state.updateEveryMs = action.payload;
+    },
+    setCellSize: (state, action: PayloadAction<number>) => {
+      state.cellSize = action.payload;
     },
     reset: (state) => {
       Object.assign(state, initialState);
@@ -60,15 +70,19 @@ export const gameConfiguratorSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   setDimensions,
-  setInitialState,
-  setIntoInitialState,
+  setCells,
+  setIntoCells,
   setUpdateEveryMs,
+  setCellSize,
   reset,
 } = gameConfiguratorSlice.actions;
 
 // selectors
-export const dimensionsSelector = (state: RootState) => state.GameConfigurator.dimensions;
-export const initialStateSelector = (state: RootState) => state.GameConfigurator.initialState;
+export const dimensionsSelector = (state: RootState) => ({
+  rowsCount: state.GameConfigurator.cells.length,
+  columnsCount: state.GameConfigurator.cells[0].length,
+});
+export const cellsSelector = (state: RootState) => state.GameConfigurator.cells;
 export const cellSizeSelector = (state: RootState) => state.GameConfigurator.cellSize;
 export const updateEveryMsSelector = (state: RootState) => state.GameConfigurator.updateEveryMs;
 

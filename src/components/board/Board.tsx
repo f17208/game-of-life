@@ -7,24 +7,29 @@ export type BoardDimensions = {
 }
 
 export type BoardProps = {
-  state: CellStatus[][];
+  cells: CellStatus[][];
   cellSize: number;
-  onCellClick: (position: CellPosition, state: CellStatus) => void;
+  onClickCell: (position: CellPosition, status: CellStatus) => void;
 };
 
-export const Board: FC<BoardProps> = ({ state, cellSize, onCellClick }) => {
+export const Board: FC<BoardProps> = ({ cells, cellSize, onClickCell }) => {
   return (
     <div>
       {
-        state.map((row, x) => {
-          return row.map((CellStatus, y) => {
-            return <Cell
-              size={cellSize}
-              position={{ x, y }}
-              state={CellStatus}
-              onClick={onCellClick}
-            />;
-          });
+        cells.map((row, x) => {
+          return <div key={`row-${x}`}>
+            {
+              row.map((cellStatus, y) => {
+                return <Cell
+                  key={`cell-${x}-${y}`}
+                  size={cellSize}
+                  position={{ x, y }}
+                  state={cellStatus}
+                  onClick={onClickCell}
+                />;
+              })
+            }
+          </div>;
         })
       }
     </div>
