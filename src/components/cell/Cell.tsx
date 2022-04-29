@@ -1,5 +1,7 @@
 import { FC, useMemo } from 'react';
 
+import './Cell.css';
+
 export enum CellStatus {
   alive = 'alive',
   dead = 'dead',
@@ -26,6 +28,7 @@ export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
 
   return (
     <button
+      className="Cell"
       type="button"
       onClick={() => onClick(position, oppositeState)}
       style={{

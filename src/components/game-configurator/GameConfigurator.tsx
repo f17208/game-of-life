@@ -1,30 +1,26 @@
-import { ChangeEvent, FC, useCallback } from 'react';
+import { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFromFileContent } from '../../utils/load-cells-from-file';
-import { Board } from '../board/Board';
-import { CellPosition, CellStatus } from '../cell/Cell';
 import { GameStatus, setGenerationCount, setStatus,
   cellSizeSelector,
   GameConfig,
-  cellsSelector,
   setCellSize,
   setDimensions,
   setCells,
   setUpdateEveryMs,
   updateEveryMsSelector,
-  setIntoCells,
+  areCellsConfiguredSelector,
 } from '../common/GameState.slice';
 
-export type GameConfiguratorProps = {
-  onComplete: (gameConfig: GameConfig) => void;
-};
+export const GameConfigurator: FC = () => {
+  const dispatch = useDispatch();
 
-export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
   const cellSize = useSelector(cellSizeSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
-  const cells = useSelector(cellsSelector);
+  const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
 
-  const dispatch = useDispatch();
+  // can start game if has any cells
+  const canStartGame = useSelector(areCellsConfiguredSelector);
 
   const onFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const files = e?.target?.files;
@@ -48,13 +44,11 @@ export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
   }, [dispatch]);
 
   const onStartGame = useCallback(() => {
-    dispatch(setStatus(GameStatus.paused));
-  }, [dispatch]);
-
-  // can start game if has any cells
-  const canStartGame = cells.flatMap(
-    rows => rows.map(cell => cell),
-  ).length > 0;
+    const nextStatus = isAutoplayEnabled
+      ? GameStatus.playing
+      : GameStatus.paused;
+    dispatch(setStatus(nextStatus));
+  }, [dispatch, isAutoplayEnabled]);
 
   return (
     <div>
@@ -84,6 +78,14 @@ export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
             onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
           />
         </div>
+        <div>
+          autoplay:&nbsp;
+          <input
+            type="checkbox"
+            checked={isAutoplayEnabled}
+            onChange={() => setIsAutoplayEnabled(autoplay => !autoplay)}
+          />
+        </div>
 
         {canStartGame && (
           <div>
@@ -96,14 +98,6 @@ export const GameConfigurator: FC<GameConfiguratorProps> = ({ onComplete }) => {
           </div>
         )}
       </div>
-
-      <Board
-        cells={cells}
-        cellSize={cellSize}
-        onClickCell={(position: CellPosition, status: CellStatus) => {
-          dispatch(setIntoCells({ position, status }));
-        }}
-      />
     </div>
   );
 };

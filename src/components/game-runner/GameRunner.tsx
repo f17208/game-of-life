@@ -1,28 +1,20 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useInterval } from 'react-use';
-import { Board } from '../board/Board';
-import { CellPosition, CellStatus } from '../cell/Cell';
 import {
-  cellSizeSelector,
   cellsSelector,
-  setIntoCells,
   updateEveryMsSelector,
   GameStatus,
   statusSelector,
   nextState,
   setStatus,
-  generationCountSelector,
 } from '../common/GameState.slice';
 
 export type GameRunnerProps = {};
 
 export const GameRunner: FC<GameRunnerProps> = () => {
   const gameStatus = useSelector(statusSelector);
-  const cellSize = useSelector(cellSizeSelector);
   const cells = useSelector(cellsSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
-  const generationCount = useSelector(generationCountSelector);
   const isPlaying = gameStatus === GameStatus.playing;
 
   const dispatch = useDispatch();
@@ -30,10 +22,6 @@ export const GameRunner: FC<GameRunnerProps> = () => {
   const onNextState = useCallback(() => {
     dispatch(nextState(cells));
   }, [dispatch, cells]);
-
-  const onClickCell = useCallback((position: CellPosition, status: CellStatus) => {
-    dispatch(setIntoCells({ position, status }));
-  }, [dispatch]);
 
   const onConfigure = useCallback(() => {
     dispatch(setStatus(GameStatus.stopped));
@@ -51,13 +39,29 @@ export const GameRunner: FC<GameRunnerProps> = () => {
     }
   }, [gameStatus, dispatch]);
 
-  useInterval(
-    onNextState,
-    isPlaying ? updateEveryMs : null,
-  );
+  // eslint-disable-next-line no-undef
+  const updateInterval = useRef<NodeJS.Timer | null>(null);
+  useEffect(() => {
+    if (isPlaying) {
+      if (updateInterval.current) {
+        clearInterval(updateInterval.current);
+      }
+      updateInterval.current = setInterval(() => {
+        onNextState();
+      }, updateEveryMs);
+    }
+    return () => {
+      if (updateInterval.current) {
+        clearInterval(updateInterval.current);
+      }
+    };
+  }, [isPlaying, onNextState, updateEveryMs]);
 
   return (
     <div>
+      <div>
+        <h4>Play game!</h4>
+      </div>
       <div>
         <button
           type="button"
@@ -80,14 +84,6 @@ export const GameRunner: FC<GameRunnerProps> = () => {
         >
           { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
         </button>
-      </div>
-      <Board
-        cellSize={cellSize}
-        cells={cells}
-        onClickCell={onClickCell}
-      />
-      <div>
-        generation #{generationCount}
       </div>
     </div>
   );

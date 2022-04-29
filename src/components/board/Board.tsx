@@ -17,7 +17,7 @@ export const Board: FC<BoardProps> = ({ cells, cellSize, onClickCell }) => {
     <div>
       {
         cells.map((row, x) => {
-          return <div key={`row-${x}`}>
+          return <div key={`row-${x}`} style={{ height: cellSize }}>
             {
               row.map((cellStatus, y) => {
                 return <Cell

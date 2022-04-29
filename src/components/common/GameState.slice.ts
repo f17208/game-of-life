@@ -17,6 +17,7 @@ export type GameConfig = {
   updateEveryMs: number; // number of milliseconds between a state update and the next
   status: GameStatus;
   generationCount: number;
+  autoPlay: boolean; // automatically play after configuration
 }
 
 const initialState: GameConfig = {
@@ -25,6 +26,7 @@ const initialState: GameConfig = {
   cells: [[]],
   status: GameStatus.stopped,
   generationCount: 0,
+  autoPlay: true,
 };
 
 export type SetDimensionsInput = {
@@ -32,7 +34,7 @@ export type SetDimensionsInput = {
   columnsCount: number,
 }
 
-export type SetIntoCellsInput = {
+export type SetIntoCellInput = {
   position: CellPosition;
   status: CellStatus;
 };
@@ -67,7 +69,7 @@ export const gameStateSlice = createSlice({
 
       state.cells = newCells;
     },
-    setIntoCells: (state, action: PayloadAction<SetIntoCellsInput>) => {
+    setIntoCell: (state, action: PayloadAction<SetIntoCellInput>) => {
       const { status, position: { x, y } } = action.payload;
       state.cells[x][y] = status;
     },
@@ -94,7 +96,7 @@ export const gameStateSlice = createSlice({
 export const {
   setDimensions,
   setCells,
-  setIntoCells,
+  setIntoCell,
   setUpdateEveryMs,
   setStatus,
   setGenerationCount,
@@ -113,5 +115,8 @@ export const cellSizeSelector = (state: RootState) => state.GameState.cellSize;
 export const updateEveryMsSelector = (state: RootState) => state.GameState.updateEveryMs;
 export const statusSelector = (state: RootState) => state.GameState.status;
 export const generationCountSelector = (state: RootState) => state.GameState.generationCount;
+export const areCellsConfiguredSelector = (state: RootState) => state.GameState.cells.flatMap(
+  rows => rows.map(cell => cell),
+).length > 0;
 
 export default gameStateSlice.reducer;
