@@ -7,7 +7,7 @@ import {
   statusSelector,
   nextState,
   setStatus,
-} from '../common/GameState.slice';
+} from '../game-state/GameState.slice';
 
 export type GameRunnerProps = {};
 

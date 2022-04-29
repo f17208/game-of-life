@@ -1,16 +1,18 @@
 import { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadFromFileContent } from '../../utils/load-cells-from-file';
-import { GameStatus, setGenerationCount, setStatus,
+import {
+  GameStatus,
+  setGenerationCount,
+  setStatus,
   cellSizeSelector,
-  GameConfig,
   setCellSize,
   setDimensions,
   setCells,
   setUpdateEveryMs,
   updateEveryMsSelector,
   areCellsConfiguredSelector,
-} from '../common/GameState.slice';
+} from '../game-state/GameState.slice';
 
 export const GameConfigurator: FC = () => {
   const dispatch = useDispatch();
@@ -31,13 +33,18 @@ export const GameConfigurator: FC = () => {
       reader.onload = () => {
         const { result } = reader;
         if (result) {
-          const configuration = loadFromFileContent(result.toString()); // TODO handle arraybuffer
-          dispatch(setDimensions(configuration.dimensions));
-          dispatch(setCells(configuration.cells));
-          dispatch(setGenerationCount(configuration.generation));
+          try {
+            const configuration = loadFromFileContent(result.toString()); // TODO handle arraybuffer
+            dispatch(setDimensions(configuration.dimensions));
+            dispatch(setCells(configuration.cells));
+            dispatch(setGenerationCount(configuration.generation));
+          } catch (e) {
+            console.error(e);
+            alert((e as Error).message);
+          }
         } else {
           // eslint-disable-next-line
-          alert('cannot read file'); // ... TODO improve this
+          alert('Error: cannot read file'); // ... TODO improve this
         }
       };
     }
@@ -53,13 +60,14 @@ export const GameConfigurator: FC = () => {
   return (
     <div>
       <h4>Configure game</h4>
-      {/* form dimensions ecc. */}
       <div>
         <div>
-          load configuration:&nbsp;
+          load configuration from file:&nbsp;
           <input
             type="file"
             onChange={onFileChange}
+            max={1}
+            accept=".txt"
           />
         </div>
         <div>
@@ -71,12 +79,17 @@ export const GameConfigurator: FC = () => {
           />
         </div>
         <div>
-          update every (ms):&nbsp;
-          <input
-            type="number"
-            value={updateEveryMs}
-            onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
-          />
+          update every {updateEveryMs / 1000} seconds:
+          <div>
+            <input
+              type="range"
+              min={100}
+              max={1500}
+              step={100}
+              value={updateEveryMs}
+              onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
+            />
+          </div>
         </div>
         <div>
           autoplay:&nbsp;

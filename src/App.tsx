@@ -10,7 +10,7 @@ import {
   generationCountSelector,
   setIntoCell,
   statusSelector,
-} from './components/common/GameState.slice';
+} from './components/game-state/GameState.slice';
 import { Board } from './components/board/Board';
 
 import './App.css';

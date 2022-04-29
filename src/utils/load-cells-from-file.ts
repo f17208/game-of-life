@@ -12,14 +12,18 @@ export function loadFromFileContent(content: string) {
   const generation = +generationLine.split(' ')[1].replace(':', ''); // TODO use regex
   const [rowsCount, columnsCount] = dimensionsLine.split(' ').map(x => +x);
 
+  if (Number.isNaN(rowsCount) || Number.isNaN(columnsCount)) {
+    throw new Error('Invalid rows/column count in configuration');
+  }
+
   if (cellsLines.length !== rowsCount) {
-    throw new Error('Invalid rows count in configuration');
+    throw new Error('Invalid rows in configuration');
   }
 
   const cells = cellsLines.map(line => {
     const splittedLine = line.split(' ');
     if (splittedLine.length !== columnsCount) {
-      throw new Error('Invalid columns count in configuration');
+      throw new Error('Invalid columns in configuration');
     }
     return splittedLine.map(char => {
       if (char === '*') {
