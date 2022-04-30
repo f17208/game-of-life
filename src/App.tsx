@@ -17,8 +17,9 @@ import { Board } from './components/board/Board';
 import './App.css';
 
 import { CellPosition, CellStatus } from './components/cell/Cell';
-import { H4 } from './components/common/headings/h1';
+import { H4 } from './components/common/headings/h4';
 import { BoardToolBar } from './components/board/BoardToolBar';
+import { H3 } from './components/common/headings/h3';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,14 +35,19 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="p-6 space-y-4 h-full">
-      <span className="flex justify-center">
-        {
-          gameStatus === GameStatus.stopped
-            ? <H4>New game</H4>
-            : <H4>Play game!</H4>
-        }
-      </span>
+    <div className="p-6 space-y-5 h-full">
+      <div className="space-y-1">
+        <div className="flex justify-center">
+          <H3>Game of Life</H3>
+        </div>
+        <div className="flex justify-center">
+          {
+            gameStatus === GameStatus.stopped
+              ? <H4>Setup Board</H4>
+              : <H4>Generation #{generationCount}</H4>
+          }
+        </div>
+      </div>
       <div className="container mx-auto h-full">
         <div className="max-w-md mx-auto mb-4">
           {

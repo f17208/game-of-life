@@ -557,6 +557,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 32rem !important;
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
 .cursor-pointer {
   cursor: pointer !important;
 }
@@ -573,10 +577,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-between !important;
 }
 
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0 !important;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse))) !important;
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse)) !important;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse))) !important;
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse)) !important;
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0 !important;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse))) !important;
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse)) !important;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
@@ -613,10 +623,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .rounded-lg {
   border-radius: 0.5rem !important;
-}
-
-.rounded-full {
-  border-radius: 9999px !important;
 }
 
 .rounded-md {
@@ -682,18 +688,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 0.5rem !important;
 }
 
-.py-2 {
+.pt-2 {
   padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
 }
 
-.pt-1 {
-  padding-top: 0.25rem !important;
+.text-3xl {
+  font-size: 1.875rem !important;
+  line-height: 2.25rem !important;
 }
 
-.text-5xl {
-  font-size: 3rem !important;
-  line-height: 1 !important;
+.text-xl {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+}
+
+.font-bold {
+  font-weight: 700 !important;
 }
 
 .font-medium {
@@ -714,8 +724,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(0 176 254 / var(--tw-text-opacity)) !important;
 }
 
+.text-gray-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(107 114 128 / var(--tw-text-opacity)) !important;
+}
+
 .accent-primary {
   accent-color: #00b0fe !important;
+}
+
+.opacity-50 {
+  opacity: 0.5 !important;
 }
 
 #root {
@@ -730,6 +749,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-secondary:hover {
   --tw-bg-opacity: 1 !important;
   background-color: rgb(254 103 68 / var(--tw-bg-opacity)) !important;
+}
+
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed !important;
 }
 
 .disabled\:bg-primary:disabled {

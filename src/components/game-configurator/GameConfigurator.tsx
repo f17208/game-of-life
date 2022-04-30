@@ -10,6 +10,7 @@ import {
   updateEveryMsSelector,
   areCellsConfiguredSelector,
   dimensionsSelector,
+  generationCountSelector,
 } from '../game-state/GameState.slice';
 
 import {
@@ -32,6 +33,7 @@ type UpdateDimensionsProps = {
 
 export const GameConfigurator: FC = () => {
   const dispatch = useDispatch();
+  const generationsCount = useSelector(generationCountSelector);
 
   const updateEveryMs = useSelector(updateEveryMsSelector);
   const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
@@ -113,6 +115,19 @@ export const GameConfigurator: FC = () => {
               min={MIN_COLUMNS_COUNT}
               onChange={e => updateDimensions({ columns: +e.target.value })}
               style={{ maxWidth: 55, textAlign: 'center' }}
+            />
+          </span>
+        </div>
+
+        <div className="flex items-center space-x-4 justify-between">
+          <span>Start from generation #</span>
+          <span className="flex space-x-1">
+            <Input
+              type="number"
+              value={generationsCount}
+              min={0}
+              onChange={e => dispatch(setGenerationCount(+e.target.value))}
+              style={{ maxWidth: 125, textAlign: 'center' }}
             />
           </span>
         </div>

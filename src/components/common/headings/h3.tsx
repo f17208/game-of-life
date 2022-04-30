@@ -1,16 +1,15 @@
 import { FC, DetailedHTMLProps, HTMLAttributes } from 'react';
 
-interface H4Props extends DetailedHTMLProps<
+interface H3Props extends DetailedHTMLProps<
   HTMLAttributes<HTMLHeadingElement>,
   HTMLHeadingElement
 > {}
 
-export const H4: FC<H4Props> = ({ children, className, ...props }) => {
+export const H3: FC<H3Props> = ({ children, className, ...props }) => {
   return (
-    <h4
+    <h3
       className={`
-        font-medium text-5xl
-        leading-tight
+        font-bold text-3xl
         mt-0 mb-2
         text-primary
         ${className || ''}
@@ -18,6 +17,6 @@ export const H4: FC<H4Props> = ({ children, className, ...props }) => {
       {...props}
     >
       {children}
-    </h4>
+    </h3>
   );
 };

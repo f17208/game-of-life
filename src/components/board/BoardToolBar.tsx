@@ -21,7 +21,7 @@ export const BoardToolBar: FC<BoardToolBarProps> = ({
   generationCount,
 }) => {
   return (
-    <div className="flex items-center justify-between pt-1">
+    <div className="flex items-center justify-between pt-2">
       <div className="flex items-center space-x-1">
         {onChangeCellSize && <>
           <ZoomIcon className="h-6 fill-primary" />
@@ -38,7 +38,7 @@ export const BoardToolBar: FC<BoardToolBarProps> = ({
       </div>
 
       {generationCount !== undefined && (
-        <div className="flex space-x-2 items-center pt-1">
+        <div className="flex space-x-2 items-center">
           <SaveBoard cells={cells} generationCount={generationCount} />
         </div>
       )}
