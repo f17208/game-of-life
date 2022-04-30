@@ -99,7 +99,7 @@ export const Board: FC<BoardProps> = ({
           </div>
         )}
       </div>
-      
+
     </div>
   );
 };
