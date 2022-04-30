@@ -8,7 +8,7 @@ export enum CellStatus {
 export type CellPosition = {
   x: number;
   y: number;
-}
+};
 
 export type CellProps = {
   position: CellPosition;

@@ -55,9 +55,9 @@ export const GameConfigurator: FC = () => {
             dispatch(setDimensions(configuration.dimensions));
             dispatch(setCells(configuration.cells));
             dispatch(setGenerationCount(configuration.generation));
-          } catch (e) {
-            console.error(e);
-            alert((e as Error).message);
+          } catch (err) {
+            console.error(err);
+            alert((err as Error).message);
           }
         } else {
           // eslint-disable-next-line
