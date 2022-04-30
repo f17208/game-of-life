@@ -30,7 +30,10 @@
         "error", 
         2, 
         {
-          "ignoredNodes": ["TSTypeParameterInstantiation"]
+          "ignoredNodes": [
+            "TSTypeParameterInstantiation",
+            "SwitchCase"
+          ]
         }
       ],
       "react/jsx-filename-extension": [
