@@ -9,6 +9,6 @@ test('successfully renders app', () => {
       <App />
     </Provider>,
   );
-  const step1HeaderElement = screen.getByText('Game of Life');
-  expect(step1HeaderElement).toBeInTheDocument();
+  const newGameElement = screen.getByText('New game');
+  expect(newGameElement).toBeInTheDocument();
 });

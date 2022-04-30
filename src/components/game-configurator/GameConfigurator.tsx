@@ -5,7 +5,6 @@ import {
   setGenerationCount,
   setStatus,
   cellSizeSelector,
-  setCellSize,
   setDimensions,
   setCells,
   setUpdateEveryMs,
@@ -18,9 +17,6 @@ import {
   STEP_UPDATE_EVERY_MS,
   MAX_UPDATE_EVERY_MS,
   MIN_UPDATE_EVERY_MS,
-  STEP_CELL_SIZE,
-  MIN_CELL_SIZE,
-  MAX_CELL_SIZE,
   MIN_ROWS_COUNT,
   MIN_COLUMNS_COUNT,
 } from '../../utils/constants';
