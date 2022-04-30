@@ -25,7 +25,7 @@ export type GameConfig = {
   status: GameStatus;
   generationCount: number;
   autoPlay: boolean; // automatically play after configuration
-}
+};
 
 const initialState: GameConfig = {
   cellSize: DEFAULT_CELL_SIZE,
@@ -39,7 +39,7 @@ const initialState: GameConfig = {
 export type SetDimensionsInput = {
   rowsCount: number,
   columnsCount: number,
-}
+};
 
 export type SetIntoCellInput = {
   position: CellPosition;

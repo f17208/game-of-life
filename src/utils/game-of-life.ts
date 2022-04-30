@@ -28,7 +28,7 @@ export function getNextState(cells: CellStatus[][]) {
       const neighbors = getNeighbors(i, j, cells);
 
       const countAliveNeighbors = neighbors
-        .filter(cell => cell === CellStatus.alive)
+        .filter(neighbor => neighbor === CellStatus.alive)
         .length;
 
       if (countAliveNeighbors < 2 || countAliveNeighbors > 3) {
