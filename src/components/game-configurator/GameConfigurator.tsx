@@ -4,7 +4,6 @@ import {
   GameStatus,
   setGenerationCount,
   setStatus,
-  cellSizeSelector,
   setDimensions,
   setCells,
   setUpdateEveryMs,
@@ -34,7 +33,6 @@ type UpdateDimensionsProps = {
 export const GameConfigurator: FC = () => {
   const dispatch = useDispatch();
 
-  const cellSize = useSelector(cellSizeSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
   const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
 

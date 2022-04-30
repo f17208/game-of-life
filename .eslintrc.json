@@ -47,7 +47,7 @@
       "react/jsx-props-no-spreading": "off",
       "import/prefer-default-export": "off",
       "no-shadow": "off",
-      "no-unused-vars": "off",
+      "no-unused-vars": "warn",
       "react/no-array-index-key": "off",
       "jsx-a11y/control-has-associated-label": "off",
       "no-plusplus": "off",
