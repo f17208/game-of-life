@@ -27,14 +27,17 @@ export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
   return (
     <button
       className={[
-        'border border-grey-500',
-        state === CellStatus.alive ? 'bg-primary' : '',
+        'inline-block',
+        'hover:border-primary',
+        'border border-solid',
+        state === CellStatus.alive ? 'bg-primary' : 'bg-white',
       ].join(' ')}
       type="button"
       onClick={() => onClick(position, oppositeState)}
       style={{
         width: size,
         height: size,
+        borderRadius: '15%',
       }}
     />
   );

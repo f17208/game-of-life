@@ -6,8 +6,8 @@ import { CellPosition, CellStatus } from '../cell/Cell';
 import {
   DEFAULT_UPDATE_EVERY_MS,
   DEFAULT_CELL_SIZE,
-  MIN_ROWS_COUNT,
-  MIN_COLUMNS_COUNT,
+  DEFAULT_ROWS_COUNT,
+  DEFAULT_COLUMNS_COUNT,
 } from '../../utils/constants';
 
 export class GameStatus {
@@ -30,7 +30,7 @@ export type GameConfig = {
 const initialState: GameConfig = {
   cellSize: DEFAULT_CELL_SIZE,
   updateEveryMs: DEFAULT_UPDATE_EVERY_MS,
-  cells: getBoard(MIN_ROWS_COUNT, MIN_COLUMNS_COUNT),
+  cells: getBoard(DEFAULT_ROWS_COUNT, DEFAULT_COLUMNS_COUNT),
   status: GameStatus.stopped,
   generationCount: 0,
   autoPlay: true,

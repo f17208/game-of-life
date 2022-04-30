@@ -1,6 +1,12 @@
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../common/button/Button';
+
+import { ReactComponent as CogIcon } from '../assets/cog.svg';
+import { ReactComponent as ArrowNextIcon } from '../assets/arrow-next.svg';
+import { ReactComponent as PlayIcon } from '../assets/play.svg';
+import { ReactComponent as PauseIcon } from '../assets/pause.svg';
+
 import {
   updateEveryMsSelector,
   GameStatus,
@@ -56,27 +62,31 @@ export const GameRunner: FC<GameRunnerProps> = () => {
     };
   }, [isPlaying, onNextState, updateEveryMs]);
 
+  const iconClassName = 'h-5 fill-white mr-1';
+
   return (
-    <div>
-      <div>
-        <h4>Play game!</h4>
-      </div>
-      <div>
-        <Button onClick={onConfigure}>
-          ← Configure
-        </Button>
+    <div className="flex space-x-2 justify-center">
+      <Button onClick={onConfigure}>
+        <CogIcon className={iconClassName} />
+        Options
+      </Button>
 
-        <Button
-          disabled={isPlaying}
-          onClick={onNextState}
-        >
-          Next
-        </Button>
+      <Button
+        disabled={isPlaying}
+        onClick={onNextState}
+      >
+        <ArrowNextIcon className={iconClassName} />
+        Next
+      </Button>
 
-        <Button onClick={onTogglePause}>
-          { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
-        </Button>
-      </div>
+      <Button onClick={onTogglePause}>
+        {
+          gameStatus === GameStatus.paused
+            ? <PlayIcon className={iconClassName} />
+            : <PauseIcon className={iconClassName} />
+        }
+        { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
+      </Button>
     </div>
   );
 };

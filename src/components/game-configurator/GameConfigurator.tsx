@@ -28,6 +28,7 @@ import {
 import { loadFromFileContent } from '../../utils/load-cells-from-file';
 import { Button } from '../common/button/Button';
 import { FileInput } from '../common/file-input/FileInput';
+import { Input } from '../common/input/Input';
 
 type UpdateDimensionsProps = {
   rows?: number;
@@ -89,40 +90,43 @@ export const GameConfigurator: FC = () => {
   }, [dispatch, rowsCount, columnsCount]);
 
   return (
-    <div>
-      <h4>Configure game</h4>
-      <div>
-        <div className="flex items-center">
-          Load configuration from file:&nbsp;
+    <div className="container">
+      <div className="space-y-2">
+        <div className="flex items-center space-x-4 justify-between">
+          <span>Load configuration from file</span>
           <FileInput
             onChange={onFileChange}
             max={1}
             accept=".txt"
           />
         </div>
-        <div>
-          Rows (min {MIN_ROWS_COUNT}):&nbsp;
-          <input
-            type="number"
-            value={rowsCount}
-            min={MIN_ROWS_COUNT}
-            onChange={e => updateDimensions({ rows: +e.target.value })}
-          />
+
+        <div className="flex items-center space-x-4 justify-between">
+          <span>Board dimensions (min {MIN_ROWS_COUNT}x{MIN_COLUMNS_COUNT})</span>
+          <span className="flex space-x-1">
+            <Input
+              type="number"
+              value={rowsCount}
+              min={MIN_ROWS_COUNT}
+              onChange={e => updateDimensions({ rows: +e.target.value })}
+              style={{ maxWidth: 55, textAlign: 'center' }}
+            />
+            <span>x</span>
+            <Input
+              type="number"
+              disabled={rowsCount === 0}
+              value={columnsCount}
+              min={MIN_COLUMNS_COUNT}
+              onChange={e => updateDimensions({ columns: +e.target.value })}
+              style={{ maxWidth: 55, textAlign: 'center' }}
+            />
+          </span>
         </div>
-        <div>
-          Columns (min {MIN_COLUMNS_COUNT}):&nbsp;
-          <input
-            type="number"
-            disabled={rowsCount === 0}
-            value={columnsCount}
-            min={MIN_COLUMNS_COUNT}
-            onChange={e => updateDimensions({ columns: +e.target.value })}
-          />
-        </div>
-        <div>
-          update every {updateEveryMs / 1000} seconds:
-          <div>
-            <input
+
+        <div className="flex items-center space-x-4 justify-between">
+          <span>Update every:</span>
+          <span className="flex items-center space-x-1">
+            <Input
               type="range"
               className="accent-primary"
               disabled={!canStartGame}
@@ -132,12 +136,13 @@ export const GameConfigurator: FC = () => {
               value={updateEveryMs}
               onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
             />
-          </div>
+            <span>{updateEveryMs / 1000}sec</span>
+          </span>
         </div>
-        <div>
-          cell size: {cellSize}px
-          <div>
-            <input
+        <div className="flex items-center space-x-4 justify-between">
+          <span>Cell size:</span>
+          <span className="flex items-center space-x-4">
+            <Input
               type="range"
               className="accent-primary"
               disabled={!canStartGame}
@@ -147,24 +152,25 @@ export const GameConfigurator: FC = () => {
               value={cellSize}
               onChange={e => dispatch(setCellSize(+e.target.value))}
             />
-          </div>
-        </div>
-        <div>
-          autoplay:&nbsp;
-          <input
-            type="checkbox"
-            checked={isAutoplayEnabled}
-            onChange={() => setIsAutoplayEnabled(autoplay => !autoplay)}
-          />
+            <span>{cellSize}px</span>
+          </span>
         </div>
 
-        {canStartGame && (
+        <div className="flex justify-between space-x-4 items-center">
+          <div className="flex space-x-4 items-center">
+            <span>Enable autoplay</span>
+            <Input
+              type="checkbox"
+              checked={isAutoplayEnabled}
+              onChange={() => setIsAutoplayEnabled(autoplay => !autoplay)}
+            />
+          </div>
           <div>
-            <Button onClick={onStartGame}>
+            <Button disabled={!canStartGame} onClick={onStartGame}>
               Start game!
             </Button>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

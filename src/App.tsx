@@ -14,9 +14,8 @@ import {
 } from './components/game-state/GameState.slice';
 import { Board } from './components/board/Board';
 
-import './App.css';
 import { CellPosition, CellStatus } from './components/cell/Cell';
-import { Button } from './components/common/button/Button';
+import { H4 } from './components/common/headings/h1';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,29 +35,39 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="App-container">
-      <div className="App-controls">
+    <div className="p-6 space-y-4 h-full">
+      <span className="flex justify-center">
         {
           gameStatus === GameStatus.stopped
-            ? <GameConfigurator />
-            : <GameRunner />
+            ? <H4>New game</H4>
+            : <H4>Play game!</H4>
         }
-      </div>
-      {areCellsConfigured && (
-        <div className="App-board">
+      </span>
+      <div className="container mx-auto h-full">
+        <div className="max-w-md mx-auto mb-4">
+          {
+            gameStatus === GameStatus.stopped
+              ? <GameConfigurator />
+              : <GameRunner />
+          }
+        </div>
+        {areCellsConfigured && (
           <Board
             cells={cells}
             cellSize={cellSize}
             onClickCell={onClickCell}
+            containerProps={{
+              style: {
+                maxHeight: gameStatus === GameStatus.stopped
+                  ? '55vh'
+                  : '75vh',
+              },
+            }}
+            generationCount={generationCount}
+            onResetGenerations={onResetGenerations}
           />
-        </div>
-      )}
-      {areCellsConfigured && (
-        <div className="App-footer">
-          Generation #{generationCount}&nbsp;
-          <Button onClick={onResetGenerations}>Reset</Button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

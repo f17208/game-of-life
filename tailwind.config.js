@@ -11,7 +11,9 @@ module.exports = {
       },
     }
   },
-  variants: {},
+  variants: {
+    
+  },
   plugins: [],
   future: {
     purgeLayersByDefault: true,

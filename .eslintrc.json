@@ -52,7 +52,8 @@
       "jsx-a11y/control-has-associated-label": "off",
       "no-plusplus": "off",
       "no-console": "off",
-      "no-alert": "off"
+      "no-alert": "off",
+      "no-trailing-spaces": "warn"
     },
     "overrides": [
       {

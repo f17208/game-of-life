@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const Button: FC<ButtonProps> = ({ children, disabled, ...rest }) => {
+export const IconButton: FC<IconButtonProps> = ({ children, disabled, ...rest }) => {
   return (
     <button
       type="button"
@@ -10,9 +10,9 @@ export const Button: FC<ButtonProps> = ({ children, disabled, ...rest }) => {
       className={`
         bg-primary hover:bg-secondary disabled:bg-primary text-white 
         disabled:opacity-50 
-        px-4 py-1
-        rounded-lg
+        px-2 py-2
         flex space-x-2 items-center
+        rounded-full
       `}
       {...rest}
     >
