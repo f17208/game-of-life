@@ -41,3 +41,22 @@ export function getNextState(cells: CellStatus[][]) {
     });
   });
 }
+
+export function getBoard(rowsCount: number, columnsCount: number, values?: CellStatus[][]) {
+  const toReturn: CellStatus[][] = [];
+
+  for (let i = 0; i < rowsCount; i++) {
+    if (!toReturn[i]) {
+      toReturn[i] = new Array(columnsCount);
+    }
+
+    for (let j = 0; j < columnsCount; j++) {
+      if (values && (i < values.length && j < values[i].length)) {
+        toReturn[i][j] = values[i][j];
+      } else {
+        toReturn[i][j] = CellStatus.dead;
+      }
+    }
+  }
+  return toReturn;
+}

@@ -1,7 +1,6 @@
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  cellsSelector,
   updateEveryMsSelector,
   GameStatus,
   statusSelector,
@@ -13,15 +12,14 @@ export type GameRunnerProps = {};
 
 export const GameRunner: FC<GameRunnerProps> = () => {
   const gameStatus = useSelector(statusSelector);
-  const cells = useSelector(cellsSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
   const isPlaying = gameStatus === GameStatus.playing;
 
   const dispatch = useDispatch();
 
   const onNextState = useCallback(() => {
-    dispatch(nextState(cells));
-  }, [dispatch, cells]);
+    dispatch(nextState());
+  }, [dispatch]);
 
   const onConfigure = useCallback(() => {
     dispatch(setStatus(GameStatus.stopped));

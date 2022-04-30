@@ -1,6 +1,5 @@
 import { ChangeEvent, FC, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadFromFileContent } from '../../utils/load-cells-from-file';
 import {
   GameStatus,
   setGenerationCount,
@@ -22,7 +21,16 @@ import {
   STEP_CELL_SIZE,
   MIN_CELL_SIZE,
   MAX_CELL_SIZE,
+  MIN_ROWS_COUNT,
+  MIN_COLUMNS_COUNT,
 } from '../../utils/constants';
+
+import { loadFromFileContent } from '../../utils/load-cells-from-file';
+
+type UpdateDimensionsProps = {
+  rows?: number;
+  columns?: number;
+};
 
 export const GameConfigurator: FC = () => {
   const dispatch = useDispatch();
@@ -69,12 +77,21 @@ export const GameConfigurator: FC = () => {
     dispatch(setStatus(nextStatus));
   }, [dispatch, isAutoplayEnabled]);
 
+  const updateDimensions = useCallback(({ rows, columns }: UpdateDimensionsProps) => {
+    dispatch(
+      setDimensions({
+        rowsCount: rows === undefined ? rowsCount : rows,
+        columnsCount: columns === undefined ? columnsCount : columns,
+      }),
+    );
+  }, [dispatch, rowsCount, columnsCount]);
+
   return (
     <div>
       <h4>Configure game</h4>
       <div>
         <div>
-          load configuration from file:&nbsp;
+          Load configuration from file:&nbsp;
           <input
             type="file"
             onChange={onFileChange}
@@ -83,25 +100,22 @@ export const GameConfigurator: FC = () => {
           />
         </div>
         <div>
-          Rows:
+          Rows (min {MIN_ROWS_COUNT}):&nbsp;
           <input
             type="number"
             value={rowsCount}
-            onChange={e => dispatch(setDimensions({
-              rowsCount: +e.target.value,
-              columnsCount,
-            }))}
+            min={MIN_ROWS_COUNT}
+            onChange={e => updateDimensions({ rows: +e.target.value })}
           />
         </div>
         <div>
-          Columns:
+          Columns (min {MIN_COLUMNS_COUNT}):&nbsp;
           <input
             type="number"
+            disabled={rowsCount === 0}
             value={columnsCount}
-            onChange={e => dispatch(setDimensions({
-              rowsCount,
-              columnsCount: +e.target.value,
-            }))}
+            min={MIN_COLUMNS_COUNT}
+            onChange={e => updateDimensions({ columns: +e.target.value })}
           />
         </div>
         <div>
@@ -109,6 +123,7 @@ export const GameConfigurator: FC = () => {
           <div>
             <input
               type="range"
+              disabled={!canStartGame}
               min={MIN_UPDATE_EVERY_MS}
               max={MAX_UPDATE_EVERY_MS}
               step={STEP_UPDATE_EVERY_MS}
@@ -122,6 +137,7 @@ export const GameConfigurator: FC = () => {
           <div>
             <input
               type="range"
+              disabled={!canStartGame}
               min={MIN_CELL_SIZE}
               max={MAX_CELL_SIZE}
               step={STEP_CELL_SIZE}

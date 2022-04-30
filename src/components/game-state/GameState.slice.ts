@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app.store';
-import { getNextState } from '../../utils/game-of-life';
+import { getBoard, getNextState } from '../../utils/game-of-life';
 import { CellPosition, CellStatus } from '../cell/Cell';
 
 import {
   DEFAULT_UPDATE_EVERY_MS,
   DEFAULT_CELL_SIZE,
+  MIN_ROWS_COUNT,
+  MIN_COLUMNS_COUNT,
 } from '../../utils/constants';
 
 export class GameStatus {
@@ -28,7 +30,7 @@ export type GameConfig = {
 const initialState: GameConfig = {
   cellSize: DEFAULT_CELL_SIZE,
   updateEveryMs: DEFAULT_UPDATE_EVERY_MS,
-  cells: [[]],
+  cells: getBoard(MIN_ROWS_COUNT, MIN_COLUMNS_COUNT),
   status: GameStatus.stopped,
   generationCount: 0,
   autoPlay: true,
@@ -58,24 +60,7 @@ export const gameStateSlice = createSlice({
     },
     setDimensions: (state, action: PayloadAction<SetDimensionsInput>) => {
       const { rowsCount, columnsCount } = action.payload;
-
-      const oldCells = state.cells;
-      const newCells: CellStatus[][] = [];
-
-      for (let i = 0; i < rowsCount; i++) {
-        if (!newCells[i]) {
-          newCells[i] = new Array(columnsCount);
-        }
-
-        for (let j = 0; j < columnsCount; j++) {
-          if (i < oldCells.length && j < oldCells[i].length) {
-            newCells[i][j] = oldCells[i][j];
-          } else {
-            newCells[i][j] = CellStatus.dead;
-          }
-        }
-      }
-      state.cells = newCells;
+      state.cells = getBoard(rowsCount, columnsCount, state.cells);
     },
     setIntoCell: (state, action: PayloadAction<SetIntoCellInput>) => {
       const { status, position: { x, y } } = action.payload;
@@ -84,8 +69,8 @@ export const gameStateSlice = createSlice({
     setCells: (state, action: PayloadAction<SetCellsInput>) => {
       state.cells = action.payload;
     },
-    nextState: (state, action: PayloadAction<CellStatus[][]>) => {
-      state.cells = getNextState(action.payload);
+    nextState: (state) => {
+      state.cells = getNextState(state.cells);
       state.generationCount += 1;
     },
     setUpdateEveryMs: (state, action: PayloadAction<number>) => {
@@ -116,7 +101,7 @@ export const {
 // selectors
 export const dimensionsSelector = (state: RootState) => ({
   rowsCount: state.GameState.cells.length,
-  columnsCount: state.GameState.cells[0].length,
+  columnsCount: state.GameState.cells.length > 0 ? state.GameState.cells[0].length : 0,
 });
 export const cellsSelector = (state: RootState) => state.GameState.cells;
 export const cellSizeSelector = (state: RootState) => state.GameState.cellSize;
