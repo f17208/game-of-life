@@ -8,6 +8,7 @@ import {
   cellsSelector,
   GameStatus,
   generationCountSelector,
+  setCellSize,
   setGenerationCount,
   setIntoCell,
   statusSelector,
@@ -60,9 +61,11 @@ function App() {
               style: {
                 maxHeight: gameStatus === GameStatus.stopped
                   ? '55vh'
-                  : '75vh',
+                  : '70vh',
+                height: '100%',
               },
             }}
+            onChangeCellSize={newSize => dispatch(setCellSize(newSize))}
             generationCount={generationCount}
             onResetGenerations={onResetGenerations}
           />

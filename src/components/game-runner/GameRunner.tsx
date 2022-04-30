@@ -20,6 +20,7 @@ export type GameRunnerProps = {};
 export const GameRunner: FC<GameRunnerProps> = () => {
   const gameStatus = useSelector(statusSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
+
   const isPlaying = gameStatus === GameStatus.playing;
 
   const dispatch = useDispatch();

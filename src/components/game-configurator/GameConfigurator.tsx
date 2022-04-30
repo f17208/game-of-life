@@ -125,7 +125,7 @@ export const GameConfigurator: FC = () => {
 
         <div className="flex items-center space-x-4 justify-between">
           <span>Update every:</span>
-          <span className="flex items-center space-x-1">
+          <span className="flex items-center space-x-4">
             <Input
               type="range"
               className="accent-primary"
@@ -136,23 +136,7 @@ export const GameConfigurator: FC = () => {
               value={updateEveryMs}
               onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
             />
-            <span>{updateEveryMs / 1000}sec</span>
-          </span>
-        </div>
-        <div className="flex items-center space-x-4 justify-between">
-          <span>Cell size:</span>
-          <span className="flex items-center space-x-4">
-            <Input
-              type="range"
-              className="accent-primary"
-              disabled={!canStartGame}
-              min={MIN_CELL_SIZE}
-              max={MAX_CELL_SIZE}
-              step={STEP_CELL_SIZE}
-              value={cellSize}
-              onChange={e => dispatch(setCellSize(+e.target.value))}
-            />
-            <span>{cellSize}px</span>
+            <span>{(updateEveryMs / 1000).toFixed(1)}s</span>
           </span>
         </div>
 
