@@ -45,6 +45,10 @@ export const GameRunner: FC<GameRunnerProps> = () => {
     }
   }, [gameStatus, dispatch]);
 
+  /**
+   * this handles the main loop of the game
+   * sets the interval when the game is playing and clears it when it's not
+   */
   // eslint-disable-next-line no-undef
   const updateInterval = useRef<NodeJS.Timer | null>(null);
   useEffect(() => {

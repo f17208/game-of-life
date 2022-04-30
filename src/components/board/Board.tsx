@@ -3,11 +3,6 @@ import { omit } from 'lodash';
 
 import { Cell, CellPosition, CellStatus } from '../cell/Cell';
 
-export type BoardDimensions = {
-  x: number;
-  y: number;
-};
-
 export type BoardProps = {
   cells: CellStatus[][];
   cellSize: number;

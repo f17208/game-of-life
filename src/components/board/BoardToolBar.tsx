@@ -4,7 +4,7 @@ import { MAX_CELL_SIZE, MIN_CELL_SIZE, STEP_CELL_SIZE } from '../../utils/consta
 import { Input } from '../common/input/Input';
 
 import { ReactComponent as ZoomIcon } from '../assets/zoom.svg';
-import { SaveBoard } from '../common/save-board/SaveBoard';
+import { SaveBoard } from '../save-board/SaveBoard';
 import { CellStatus } from '../cell/Cell';
 
 export type BoardToolBarProps = {

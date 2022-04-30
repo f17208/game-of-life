@@ -11,8 +11,10 @@ export function getNeighbors(i: number, j: number, cells: CellStatus[][]) {
   const rowsCount = cells.length;
   const columnsCount = cells[0]?.length || 0;
 
+  // easy edge case
   if (rowsCount === 0 && columnsCount === 0) return [];
 
+  // collects neighbor cells
   const neighborPositions = [
     [i - 1, j - 1], // top left
     [i + 1, j - 1], // bottom left
@@ -44,11 +46,22 @@ export function getNextState(cells: CellStatus[][]) {
       if (countAliveNeighbors === 3) {
         return CellStatus.alive;
       }
+      // if countAliveNeighbors is 2, the status of the cell is left untouched
       return cell;
     });
   });
 }
 
+/**
+ * Returns a CellStatus 2D matrix representing a rowsCount x columnsCount board.
+ * Can be initialized with values, even of different size.
+ * Can be used to copy partial values on board resize.
+ *
+ * @param rowsCount
+ * @param columnsCount
+ * @param values basically another board we want to (partially) copy inside the returned board
+ * @returns a CellStatus 2D matrix representing a new rowsCount x columnsCount board.
+ */
 export function getBoard(rowsCount: number, columnsCount: number, values?: CellStatus[][]) {
   const toReturn: CellStatus[][] = [];
 
@@ -59,6 +72,7 @@ export function getBoard(rowsCount: number, columnsCount: number, values?: CellS
 
     for (let j = 0; j < columnsCount; j++) {
       if (values && (i < values.length && j < values[i].length)) {
+        // if value exists in values, copy it
         toReturn[i][j] = values[i][j];
       } else {
         toReturn[i][j] = CellStatus.dead;

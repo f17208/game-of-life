@@ -69,6 +69,10 @@ export const gameStateSlice = createSlice({
     setCells: (state, action: PayloadAction<SetCellsInput>) => {
       state.cells = action.payload;
     },
+    /**
+     * calculates next state of the board and sets it into cells
+     * increments generationCount by 1 immediately after
+     */
     nextState: (state) => {
       state.cells = getNextState(state.cells);
       state.generationCount += 1;

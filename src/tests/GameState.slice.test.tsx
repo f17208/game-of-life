@@ -1,4 +1,4 @@
-import * as path from 'path'; 
+import * as path from 'path';
 import { readFileSync } from 'fs';
 
 import reducer, {
@@ -9,9 +9,11 @@ import reducer, {
 import { loadFromFileContent } from '../utils/load-cells-from-file';
 
 test('should update the state correctly', () => {
-  const sampleData1 = readFileSync(path.resolve(__dirname, "../data/sample-1.txt")).toString(); 
+  // this will be our previous state configuration
+  const sampleData1 = readFileSync(path.resolve(__dirname, "../data/sample-1.txt")).toString();
   const config1 = loadFromFileContent(sampleData1);
 
+  // this will be our next state configuration
   const sampleData2 = readFileSync(path.resolve(__dirname, "../data/sample-2.txt")).toString();
   const config2 = loadFromFileContent(sampleData2);
 
@@ -24,12 +26,14 @@ test('should update the state correctly', () => {
     status: GameStatus.paused,
   };
 
+  // we initialize the expected next state based on config2 cells and generation
   const expectedState = {
     ...previousState,
     cells: config2.cells,
     generationCount: config2.generation,
   }
-  
+
+  // now we calculate the actual next state
   const newState = reducer(previousState, nextState());
 
   expect(newState.cells).toEqual(expectedState.cells);

@@ -69,6 +69,10 @@ export const GameConfigurator: FC = () => {
     }
   }, [dispatch]);
 
+  /**
+   * if autoplay is enabled, it starts the game in "playing" state
+   * otherwise it will be paused (this is meant for using manual next step)
+   */
   const onStartGame = useCallback(() => {
     const nextStatus = isAutoplayEnabled
       ? GameStatus.playing
