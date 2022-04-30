@@ -34,7 +34,7 @@ export const Board: FC<BoardProps> = ({
   onResetGenerations,
 }) => {
   return (
-    <div className="h-full">
+    <div>
       <div
         className="
           flex justify-center
