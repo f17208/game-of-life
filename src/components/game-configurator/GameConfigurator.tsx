@@ -108,7 +108,7 @@ export const GameConfigurator: FC = () => {
             <span>x</span>
             <Input
               type="number"
-              disabled={rowsCount === 0}
+              disabled={!rowsCount}
               value={columnsCount}
               min={MIN_COLUMNS_COUNT}
               onChange={e => updateDimensions({ columns: +e.target.value })}

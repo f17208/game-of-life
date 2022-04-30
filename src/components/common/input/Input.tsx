@@ -8,7 +8,11 @@ export interface InputProps extends DetailedHTMLProps<
 export const Input: FC<InputProps> = ({ className, ...props }) => {
   return (
     <input
-      className={`border border-primary rounded-md ${className || ''}`}
+      className={[
+        'border border-primary rounded-md',
+        'disabled:opacity-50 disabled:cursor-not-allowed',
+        className || '',
+      ].join(' ')}
       {...props}
     />
   );

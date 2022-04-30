@@ -8,8 +8,8 @@ export const Button: FC<ButtonProps> = ({ children, className, disabled, ...rest
       type="button"
       disabled={disabled}
       className={`
-        bg-primary hover:bg-secondary disabled:bg-primary text-white 
-        disabled:opacity-50 
+        bg-primary hover:bg-secondary disabled:bg-primary text-white
+        disabled:opacity-50 disabled:cursor-not-allowed
         px-4 py-1
         rounded-lg
         flex space-x-2 items-center
