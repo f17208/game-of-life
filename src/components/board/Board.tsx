@@ -64,7 +64,7 @@ export const Board: FC<BoardProps> = ({
         </div>
       </div>
       {generationCount !== undefined && (
-        <div className="flex space-x-2 items-center justify-center pt-1">
+        <div className="flex space-x-2 items-center justify-end pt-1">
           <span>
             Generation #{generationCount}&nbsp;
           </span>

@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC } from 'react';
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const IconButton: FC<IconButtonProps> = ({ children, disabled, ...rest }) => {
+export const IconButton: FC<IconButtonProps> = ({ children, className, disabled, ...rest }) => {
   return (
     <button
       type="button"
@@ -12,7 +12,8 @@ export const IconButton: FC<IconButtonProps> = ({ children, disabled, ...rest })
         disabled:opacity-50 
         px-2 py-2
         flex space-x-2 items-center
-        rounded-full
+        rounded-full        
+        ${className || ''}
       `}
       {...rest}
     >

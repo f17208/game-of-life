@@ -5,15 +5,16 @@ interface H4Props extends DetailedHTMLProps<
   HTMLHeadingElement
 > {}
 
-export const H4: FC<H4Props> = ({ children, ...props }) => {
+export const H4: FC<H4Props> = ({ children, className, ...props }) => {
   return (
     <h4
-      className="
+      className={`
         font-medium text-5xl
         leading-tight
         mt-0 mb-2
         text-primary
-      "
+        ${className || ''}
+      `}
       {...props}
     >
       {children}

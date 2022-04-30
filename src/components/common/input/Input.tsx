@@ -5,10 +5,10 @@ export interface InputProps extends DetailedHTMLProps<
   HTMLInputElement
 > {}
 
-export const Input: FC<InputProps> = ({ ...props }) => {
+export const Input: FC<InputProps> = ({ className, ...props }) => {
   return (
     <input
-      className="border border-primary rounded-md"
+      className={`border border-primary rounded-md ${className || ''}`}
       {...props}
     />
   );

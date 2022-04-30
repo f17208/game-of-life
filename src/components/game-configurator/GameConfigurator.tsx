@@ -161,6 +161,7 @@ export const GameConfigurator: FC = () => {
             <span>Enable autoplay</span>
             <Input
               type="checkbox"
+              className="accent-primary"
               checked={isAutoplayEnabled}
               onChange={() => setIsAutoplayEnabled(autoplay => !autoplay)}
             />

@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const Button: FC<ButtonProps> = ({ children, disabled, ...rest }) => {
+export const Button: FC<ButtonProps> = ({ children, className, disabled, ...rest }) => {
   return (
     <button
       type="button"
@@ -13,6 +13,7 @@ export const Button: FC<ButtonProps> = ({ children, disabled, ...rest }) => {
         px-4 py-1
         rounded-lg
         flex space-x-2 items-center
+        ${className || ''}
       `}
       {...rest}
     >

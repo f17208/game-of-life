@@ -7,16 +7,18 @@ interface FileInputProps extends DetailedHTMLProps<
   HTMLInputElement
 > {}
 
-export const FileInput: FC<FileInputProps> = ({ ...inputProps }) => {
+export const FileInput: FC<FileInputProps> = ({ className, ...inputProps }) => {
   return (
-    <label className="
-      px-2 py-1 w-40
-      flex space-x-2 justify-center items-center
-      bg-primary hover:bg-secondary text-white
-      rounded-lg
-      border border-blue
-      cursor-pointer
-      "
+    <label
+      className={`
+        px-2 py-1 w-40
+        flex space-x-2 justify-center items-center
+        bg-primary hover:bg-secondary text-white
+        rounded-lg
+        border border-blue
+        cursor-pointer
+        ${className || ''}
+      `}
     >
       <FileUploadIcon className="h-6" />
       <span>Select a file</span>
