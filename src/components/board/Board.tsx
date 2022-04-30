@@ -11,7 +11,7 @@ import { ReactComponent as ZoomIcon } from '../assets/zoom.svg';
 export type BoardDimensions = {
   x: number;
   y: number;
-}
+};
 
 export type BoardProps = {
   cells: CellStatus[][];
@@ -99,7 +99,7 @@ export const Board: FC<BoardProps> = ({
           </div>
         )}
       </div>
-      
+
     </div>
   );
 };

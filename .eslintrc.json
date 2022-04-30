@@ -5,10 +5,12 @@
     },
     "extends": [
       "plugin:react/recommended",
-      "airbnb"
+      "airbnb",
+      "airbnb-typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+      "project": "./tsconfig.json",
       "ecmaFeatures": {
         "jsx": true
       },
@@ -21,8 +23,19 @@
     ],
     "rules": {
       "import/no-unresolved": "off",
+      "import/no-cycle": "off",
       "import/extensions": "off",
       "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/indent": [
+        "error", 
+        2, 
+        {
+          "ignoredNodes": [
+            "TSTypeParameterInstantiation",
+            "SwitchCase"
+          ]
+        }
+      ],
       "react/jsx-filename-extension": [
         2,
         {
@@ -47,7 +60,7 @@
       "react/jsx-props-no-spreading": "off",
       "import/prefer-default-export": "off",
       "no-shadow": "off",
-      "no-unused-vars": "off",
+      "no-unused-vars": "warn",
       "react/no-array-index-key": "off",
       "jsx-a11y/control-has-associated-label": "off",
       "no-plusplus": "off",
