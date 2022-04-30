@@ -1,0 +1,11 @@
+.App-Board-container {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+  text-align: center;
+}
+
+.App-Board {
+  width: 80vw;
+  height: 55vh;
+}

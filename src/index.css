@@ -541,10 +541,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.5rem !important;
 }
 
-.h-4 {
-  height: 1rem !important;
-}
-
 .h-5 {
   height: 1.25rem !important;
 }
@@ -555,6 +551,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .max-w-md {
   max-width: 28rem !important;
+}
+
+.max-w-lg {
+  max-width: 32rem !important;
 }
 
 .cursor-pointer {
@@ -601,10 +601,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-x-reverse: 0 !important;
   margin-right: calc(1rem * var(--tw-space-x-reverse)) !important;
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse))) !important;
-}
-
-.overflow-hidden {
-  overflow: hidden !important;
 }
 
 .overflow-x-auto {

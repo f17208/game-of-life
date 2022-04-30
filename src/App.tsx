@@ -9,14 +9,16 @@ import {
   GameStatus,
   generationCountSelector,
   setCellSize,
-  setGenerationCount,
   setIntoCell,
   statusSelector,
 } from './components/game-state/GameState.slice';
 import { Board } from './components/board/Board';
 
+import './App.css';
+
 import { CellPosition, CellStatus } from './components/cell/Cell';
 import { H4 } from './components/common/headings/h1';
+import { BoardToolBar } from './components/board/BoardToolBar';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,10 +28,6 @@ function App() {
   const cells = useSelector(cellsSelector);
   const generationCount = useSelector(generationCountSelector);
   const areCellsConfigured = useSelector(areCellsConfiguredSelector);
-
-  const onResetGenerations = useCallback(() => {
-    dispatch(setGenerationCount(0));
-  }, [dispatch]);
 
   const onClickCell = useCallback((position: CellPosition, status: CellStatus) => {
     dispatch(setIntoCell({ position, status }));
@@ -53,22 +51,24 @@ function App() {
           }
         </div>
         {areCellsConfigured && (
-          <Board
-            cells={cells}
-            cellSize={cellSize}
-            onClickCell={onClickCell}
-            containerProps={{
-              style: {
-                maxHeight: gameStatus === GameStatus.stopped
-                  ? '55vh'
-                  : '70vh',
-                height: '100%',
-              },
-            }}
-            onChangeCellSize={newSize => dispatch(setCellSize(newSize))}
-            generationCount={generationCount}
-            onResetGenerations={onResetGenerations}
-          />
+          <div className="App-Board-container">
+            <Board
+              containerProps={{
+                className: 'App-Board rounded-lg bg-slate-100 border-2 border-primary',
+              }}
+              cells={cells}
+              cellSize={cellSize}
+              onClickCell={onClickCell}
+            />
+            <div className="max-w-lg mx-auto">
+              <BoardToolBar
+                cells={cells}
+                cellSize={cellSize}
+                onChangeCellSize={newValue => dispatch(setCellSize(newValue))}
+                generationCount={generationCount}
+              />
+            </div>
+          </div>
         )}
       </div>
     </div>
