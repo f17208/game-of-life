@@ -26,6 +26,8 @@ import {
 } from '../../utils/constants';
 
 import { loadFromFileContent } from '../../utils/load-cells-from-file';
+import { Button } from '../common/button/Button';
+import { FileInput } from '../common/file-input/FileInput';
 
 type UpdateDimensionsProps = {
   rows?: number;
@@ -90,10 +92,9 @@ export const GameConfigurator: FC = () => {
     <div>
       <h4>Configure game</h4>
       <div>
-        <div>
+        <div className="flex items-center">
           Load configuration from file:&nbsp;
-          <input
-            type="file"
+          <FileInput
             onChange={onFileChange}
             max={1}
             accept=".txt"
@@ -123,6 +124,7 @@ export const GameConfigurator: FC = () => {
           <div>
             <input
               type="range"
+              className="accent-primary"
               disabled={!canStartGame}
               min={MIN_UPDATE_EVERY_MS}
               max={MAX_UPDATE_EVERY_MS}
@@ -137,6 +139,7 @@ export const GameConfigurator: FC = () => {
           <div>
             <input
               type="range"
+              className="accent-primary"
               disabled={!canStartGame}
               min={MIN_CELL_SIZE}
               max={MAX_CELL_SIZE}
@@ -157,12 +160,9 @@ export const GameConfigurator: FC = () => {
 
         {canStartGame && (
           <div>
-            <button
-              type="button"
-              onClick={onStartGame}
-            >
+            <Button onClick={onStartGame}>
               Start game!
-            </button>
+            </Button>
           </div>
         )}
       </div>

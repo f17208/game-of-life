@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '../common/button/Button';
 import {
   updateEveryMsSelector,
   GameStatus,
@@ -61,27 +62,20 @@ export const GameRunner: FC<GameRunnerProps> = () => {
         <h4>Play game!</h4>
       </div>
       <div>
-        <button
-          type="button"
-          onClick={onConfigure}
-        >
+        <Button onClick={onConfigure}>
           ← Configure
-        </button>
+        </Button>
 
-        <button
-          type="button"
+        <Button
           disabled={isPlaying}
           onClick={onNextState}
         >
           Next
-        </button>
+        </Button>
 
-        <button
-          type="button"
-          onClick={onTogglePause}
-        >
+        <Button onClick={onTogglePause}>
           { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
-        </button>
+        </Button>
       </div>
     </div>
   );

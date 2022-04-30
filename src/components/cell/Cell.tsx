@@ -1,7 +1,5 @@
 import { FC, useMemo } from 'react';
 
-import './Cell.css';
-
 export enum CellStatus {
   alive = 'alive',
   dead = 'dead',
@@ -28,13 +26,15 @@ export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
 
   return (
     <button
-      className="Cell"
+      className={[
+        'border border-grey-500',
+        state === CellStatus.alive ? 'bg-primary' : '',
+      ].join(' ')}
       type="button"
       onClick={() => onClick(position, oppositeState)}
       style={{
         width: size,
         height: size,
-        background: state === CellStatus.alive ? 'black' : 'white',
       }}
     />
   );

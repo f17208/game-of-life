@@ -11,6 +11,7 @@
     "@types/node": "^16.11.27",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
+    "postcss-import": "^12.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-redux": "^8.0.1",
@@ -19,6 +20,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "build:tailwind": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
+    "prestart": "yarn run build:tailwind",
+    "prebuild": "yarn run build:tailwind",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
@@ -51,6 +55,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0"
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "tailwindcss": "^3.0.24"
   }
 }

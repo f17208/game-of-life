@@ -16,6 +16,7 @@ import { Board } from './components/board/Board';
 
 import './App.css';
 import { CellPosition, CellStatus } from './components/cell/Cell';
+import { Button } from './components/common/button/Button';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,8 +55,8 @@ function App() {
       )}
       {areCellsConfigured && (
         <div className="App-footer">
-          generation #{generationCount}&nbsp;
-          <button type="button" onClick={onResetGenerations}>reset</button>
+          Generation #{generationCount}&nbsp;
+          <Button onClick={onResetGenerations}>Reset</Button>
         </div>
       )}
     </div>
