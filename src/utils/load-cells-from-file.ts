@@ -9,7 +9,16 @@ export function loadFromFileContent(content: string) {
     ...cellsLines
   ] = lines;
 
-  const generation = +generationLine.split(' ')[1].replace(':', ''); // TODO use regex
+  const generationRegExp = /Generation (.*):/;
+  const generationRegExpResult = generationLine.match(generationRegExp);
+
+  const generation = generationRegExpResult === null
+    ? -1
+    : +generationRegExpResult[1];
+
+  if (generation === -1 || Number.isNaN(generation)) {
+    throw new Error('Invalid generation in configuration');
+  }
   const [rowsCount, columnsCount] = dimensionsLine.split(' ').map(x => +x);
 
   if (Number.isNaN(rowsCount) || Number.isNaN(columnsCount)) {
@@ -17,21 +26,32 @@ export function loadFromFileContent(content: string) {
   }
 
   if (cellsLines.length !== rowsCount) {
-    throw new Error('Invalid rows in configuration');
+    throw new Error([
+      'Invalid rows in configuration:',
+      `expected rowsCount ${rowsCount}, found ${cellsLines.length},`,
+    ].join(' '));
   }
 
-  const cells = cellsLines.map(line => {
+  const cells = cellsLines.map((line, lineIndex) => {
     const splittedLine = line.split(' ');
     if (splittedLine.length !== columnsCount) {
-      throw new Error('Invalid columns in configuration');
+      throw new Error([
+        'Invalid columns in configuration:',
+        `expected columnsCount ${columnsCount}, found ${splittedLine.length},`,
+        `at line number ${lineIndex}`,
+      ].join(' '));
     }
-    return splittedLine.map(char => {
+    return splittedLine.map((char, charIndex) => {
       if (char === '*') {
         return CellStatus.alive;
       } if (char === '.') {
         return CellStatus.dead;
       }
-      throw new Error('Invalid symbol');
+      throw new Error([
+        'Invalid symbol in configuration:',
+        `expected "*", "." or " ", found "${char}",`,
+        `at line number ${lineIndex}, position ${charIndex}`,
+      ].join(' '));
     });
   });
 
