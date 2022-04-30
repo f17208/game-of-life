@@ -1,7 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app.store';
 import { getNextState } from '../../utils/game-of-life';
-import { Cell, CellPosition, CellStatus } from '../cell/Cell';
+import { CellPosition, CellStatus } from '../cell/Cell';
+
+import {
+  DEFAULT_UPDATE_EVERY_MS,
+  DEFAULT_CELL_SIZE,
+} from '../../utils/constants';
 
 export class GameStatus {
   static playing = 'playing';
@@ -21,8 +26,8 @@ export type GameConfig = {
 }
 
 const initialState: GameConfig = {
-  cellSize: 48,
-  updateEveryMs: 500,
+  cellSize: DEFAULT_CELL_SIZE,
+  updateEveryMs: DEFAULT_UPDATE_EVERY_MS,
   cells: [[]],
   status: GameStatus.stopped,
   generationCount: 0,
@@ -53,20 +58,23 @@ export const gameStateSlice = createSlice({
     },
     setDimensions: (state, action: PayloadAction<SetDimensionsInput>) => {
       const { rowsCount, columnsCount } = action.payload;
-      const newCells = new Array(rowsCount) // initialize rowsCount rows
-        .fill(
-          new Array(columnsCount).fill(CellStatus.dead), // fill all with dead cells
-        );
 
-      // copy old values (if possible in new board configuration)
-      state.cells.forEach((row, i) => {
-        row.forEach((cell, j) => {
-          if (i < newCells.length && j < newCells[i].length) {
-            newCells[i][j] = state.cells[i][j];
+      const oldCells = state.cells;
+      const newCells: CellStatus[][] = [];
+
+      for (let i = 0; i < rowsCount; i++) {
+        if (!newCells[i]) {
+          newCells[i] = new Array(columnsCount);
+        }
+
+        for (let j = 0; j < columnsCount; j++) {
+          if (i < oldCells.length && j < oldCells[i].length) {
+            newCells[i][j] = oldCells[i][j];
+          } else {
+            newCells[i][j] = CellStatus.dead;
           }
-        });
-      });
-
+        }
+      }
       state.cells = newCells;
     },
     setIntoCell: (state, action: PayloadAction<SetIntoCellInput>) => {

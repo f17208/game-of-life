@@ -12,7 +12,17 @@ import {
   setUpdateEveryMs,
   updateEveryMsSelector,
   areCellsConfiguredSelector,
+  dimensionsSelector,
 } from '../game-state/GameState.slice';
+
+import {
+  STEP_UPDATE_EVERY_MS,
+  MAX_UPDATE_EVERY_MS,
+  MIN_UPDATE_EVERY_MS,
+  STEP_CELL_SIZE,
+  MIN_CELL_SIZE,
+  MAX_CELL_SIZE,
+} from '../../utils/constants';
 
 export const GameConfigurator: FC = () => {
   const dispatch = useDispatch();
@@ -20,6 +30,8 @@ export const GameConfigurator: FC = () => {
   const cellSize = useSelector(cellSizeSelector);
   const updateEveryMs = useSelector(updateEveryMsSelector);
   const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
+
+  const { rowsCount, columnsCount } = useSelector(dimensionsSelector);
 
   // can start game if has any cells
   const canStartGame = useSelector(areCellsConfiguredSelector);
@@ -71,11 +83,25 @@ export const GameConfigurator: FC = () => {
           />
         </div>
         <div>
-          cell size:&nbsp;
+          Rows:
           <input
             type="number"
-            value={cellSize}
-            onChange={e => dispatch(setCellSize(+e.target.value))}
+            value={rowsCount}
+            onChange={e => dispatch(setDimensions({
+              rowsCount: +e.target.value,
+              columnsCount,
+            }))}
+          />
+        </div>
+        <div>
+          Columns:
+          <input
+            type="number"
+            value={columnsCount}
+            onChange={e => dispatch(setDimensions({
+              rowsCount,
+              columnsCount: +e.target.value,
+            }))}
           />
         </div>
         <div>
@@ -83,11 +109,24 @@ export const GameConfigurator: FC = () => {
           <div>
             <input
               type="range"
-              min={100}
-              max={1500}
-              step={100}
+              min={MIN_UPDATE_EVERY_MS}
+              max={MAX_UPDATE_EVERY_MS}
+              step={STEP_UPDATE_EVERY_MS}
               value={updateEveryMs}
               onChange={e => dispatch(setUpdateEveryMs(+e.target.value))}
+            />
+          </div>
+        </div>
+        <div>
+          cell size: {cellSize}px
+          <div>
+            <input
+              type="range"
+              min={MIN_CELL_SIZE}
+              max={MAX_CELL_SIZE}
+              step={STEP_CELL_SIZE}
+              value={cellSize}
+              onChange={e => dispatch(setCellSize(+e.target.value))}
             />
           </div>
         </div>

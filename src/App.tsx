@@ -8,6 +8,7 @@ import {
   cellsSelector,
   GameStatus,
   generationCountSelector,
+  setGenerationCount,
   setIntoCell,
   statusSelector,
 } from './components/game-state/GameState.slice';
@@ -24,6 +25,10 @@ function App() {
   const cells = useSelector(cellsSelector);
   const generationCount = useSelector(generationCountSelector);
   const areCellsConfigured = useSelector(areCellsConfiguredSelector);
+
+  const onResetGenerations = useCallback(() => {
+    dispatch(setGenerationCount(0));
+  }, [dispatch]);
 
   const onClickCell = useCallback((position: CellPosition, status: CellStatus) => {
     dispatch(setIntoCell({ position, status }));
@@ -47,9 +52,10 @@ function App() {
           />
         </div>
       )}
-      {generationCount > 0 && (
+      {areCellsConfigured && (
         <div className="App-footer">
-          generation #{generationCount}
+          generation #{generationCount}&nbsp;
+          <button type="button" onClick={onResetGenerations}>reset</button>
         </div>
       )}
     </div>

@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { Cell, CellPosition, CellStatus } from '../cell/Cell';
 
+import './Board.css';
+
 export type BoardDimensions = {
   x: number;
   y: number;
@@ -14,7 +16,7 @@ export type BoardProps = {
 
 export const Board: FC<BoardProps> = ({ cells, cellSize, onClickCell }) => {
   return (
-    <div>
+    <div className="Board-container">
       {
         cells.map((row, x) => {
           return <div key={`row-${x}`} style={{ height: cellSize }}>
