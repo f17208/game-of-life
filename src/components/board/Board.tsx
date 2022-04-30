@@ -7,6 +7,7 @@ import { Input } from '../common/input/Input';
 
 import { ReactComponent as ClearIcon } from '../assets/clear.svg';
 import { ReactComponent as ZoomIcon } from '../assets/zoom.svg';
+import { SaveBoard } from '../common/save-board/SaveBoard';
 
 export type BoardDimensions = {
   x: number;
@@ -89,13 +90,14 @@ export const Board: FC<BoardProps> = ({
         {generationCount !== undefined && (
           <div className="flex space-x-2 items-center pt-1">
             <span>
-              Generation #{generationCount}&nbsp;
+              Gen #{generationCount}&nbsp;
             </span>
             {onResetGenerations && (
               <IconButton disabled={!generationCount} onClick={onResetGenerations}>
                 <ClearIcon className="h-4 fill-white" />
               </IconButton>
             )}
+            <SaveBoard cells={cells} generationCount={generationCount} />
           </div>
         )}
       </div>

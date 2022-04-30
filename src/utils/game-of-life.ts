@@ -1,5 +1,12 @@
 import { CellStatus } from '../components/cell/Cell';
 
+export function getBoardDimensions(cells: CellStatus[][]) {
+  return {
+    rowsCount: cells.length,
+    columnsCount: cells.length > 0 ? cells[1].length : 0,
+  };
+}
+
 export function getNeighbors(i: number, j: number, cells: CellStatus[][]) {
   const rowsCount = cells.length;
   const columnsCount = cells[0]?.length || 0;
