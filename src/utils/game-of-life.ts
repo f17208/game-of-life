@@ -25,7 +25,10 @@ export function getNeighbors(i: number, j: number, cells: CellStatus[][]) {
     [i, j - 1], // left
     [i, j + 1], // right
   ].filter(([x, y]) => ( // this will filter out non-existing cells
-    x >= 0 && x < rowsCount && y >= 0 && y < columnsCount
+    x >= 0
+      && x < rowsCount
+      && y >= 0
+      && y < columnsCount
   ));
 
   return neighborPositions.map(([x, y]) => cells[x][y]);
