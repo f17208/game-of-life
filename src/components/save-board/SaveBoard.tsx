@@ -32,6 +32,6 @@ export const SaveBoard: FC<SaveBoardProps> = ({ cells, generationCount = 0, ...b
 
   return <Button onClick={downloadTxtFile} {...buttonProps}>
     <DownloadIcon className="fill-white h-6" />
-    <span>Save</span>
+    <span className="hidden md:block">Save</span>
   </Button>;
 };

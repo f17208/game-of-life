@@ -73,7 +73,7 @@ export const GameRunner: FC<GameRunnerProps> = () => {
     <div className="flex space-x-2 justify-center">
       <Button onClick={onConfigure}>
         <CogIcon className={iconClassName} />
-        Options
+        <span>Options</span>
       </Button>
 
       <Button
@@ -81,7 +81,7 @@ export const GameRunner: FC<GameRunnerProps> = () => {
         onClick={onNextState}
       >
         <ArrowNextIcon className={iconClassName} />
-        Next
+        <span>Next</span>
       </Button>
 
       <Button onClick={onTogglePause}>
@@ -90,7 +90,9 @@ export const GameRunner: FC<GameRunnerProps> = () => {
             ? <PlayIcon className={iconClassName} />
             : <PauseIcon className={iconClassName} />
         }
-        { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
+        <span>
+          { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
+        </span>
       </Button>
     </div>
   );
