@@ -27,6 +27,7 @@ export const Cell: FC<CellProps> = ({ position, size, state, onClick }) => {
   return (
     <button
       className={[
+        'Cell',
         'inline-block',
         'hover:border-primary',
         'border border-solid',

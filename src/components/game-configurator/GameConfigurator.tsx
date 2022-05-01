@@ -53,7 +53,7 @@ export const GameConfigurator: FC = () => {
         const { result } = reader;
         if (result) {
           try {
-            const configuration = loadFromFileContent(result.toString()); // TODO handle arraybuffer
+            const configuration = loadFromFileContent(result.toString());
             dispatch(setDimensions(configuration.dimensions));
             dispatch(setCells(configuration.cells));
             dispatch(setGenerationCount(configuration.generation));
@@ -63,7 +63,7 @@ export const GameConfigurator: FC = () => {
           }
         } else {
           // eslint-disable-next-line
-          alert('Error: cannot read file'); // ... TODO improve this
+          alert('Error: cannot read file');
         }
       };
     }
@@ -95,6 +95,7 @@ export const GameConfigurator: FC = () => {
         <div className="flex items-center space-x-4 justify-between">
           <span>Load configuration from file</span>
           <FileInput
+            id="upload-config-input"
             onChange={onFileChange}
             max={1}
             accept=".txt"
@@ -105,6 +106,7 @@ export const GameConfigurator: FC = () => {
           <span>Board dimensions (min {MIN_ROWS_COUNT}x{MIN_COLUMNS_COUNT})</span>
           <span className="flex space-x-1">
             <Input
+              id="configure-rows-input"
               type="number"
               value={rowsCount}
               min={MIN_ROWS_COUNT}
@@ -113,6 +115,7 @@ export const GameConfigurator: FC = () => {
             />
             <span>x</span>
             <Input
+              id="configure-columns-input"
               type="number"
               disabled={!rowsCount}
               value={columnsCount}
@@ -127,6 +130,7 @@ export const GameConfigurator: FC = () => {
           <span>Start from generation #</span>
           <span className="flex space-x-1">
             <Input
+              id="configure-generations-input"
               type="number"
               value={generationsCount}
               min={0}
@@ -140,6 +144,7 @@ export const GameConfigurator: FC = () => {
           <span>Update every:</span>
           <span className="flex items-center space-x-4">
             <Input
+              id="configure-update-ms-input"
               type="range"
               className="accent-primary"
               disabled={!canStartGame}
@@ -157,6 +162,7 @@ export const GameConfigurator: FC = () => {
           <div className="flex space-x-4 items-center">
             <span>Enable autoplay</span>
             <Input
+              id="configure-autoplay-input"
               type="checkbox"
               className="accent-primary"
               checked={isAutoplayEnabled}
