@@ -1,11 +1,8 @@
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../common/button/Button';
-
-import { ReactComponent as CogIcon } from '../assets/cog.svg';
-import { ReactComponent as ArrowNextIcon } from '../assets/arrow-next.svg';
-import { ReactComponent as PlayIcon } from '../assets/play.svg';
-import { ReactComponent as PauseIcon } from '../assets/pause.svg';
+import { ArrowNextIcon, CogIcon, PauseIcon, PlayIcon } from '../common/icons';
+import { Typography } from '../common/typography/Typography';
 
 import {
   updateEveryMsSelector,
@@ -52,10 +49,10 @@ export const GameRunner: FC<GameRunnerProps> = () => {
   // eslint-disable-next-line no-undef
   const updateInterval = useRef<NodeJS.Timer | null>(null);
   useEffect(() => {
+    if (updateInterval.current) {
+      clearInterval(updateInterval.current);
+    }
     if (isPlaying) {
-      if (updateInterval.current) {
-        clearInterval(updateInterval.current);
-      }
       updateInterval.current = setInterval(() => {
         onNextState();
       }, updateEveryMs);
@@ -73,7 +70,7 @@ export const GameRunner: FC<GameRunnerProps> = () => {
     <div className="flex space-x-2 justify-center">
       <Button onClick={onConfigure}>
         <CogIcon className={iconClassName} />
-        Options
+        <Typography>Options</Typography>
       </Button>
 
       <Button
@@ -81,7 +78,7 @@ export const GameRunner: FC<GameRunnerProps> = () => {
         onClick={onNextState}
       >
         <ArrowNextIcon className={iconClassName} />
-        Next
+        <Typography>Next</Typography>
       </Button>
 
       <Button onClick={onTogglePause}>
@@ -90,7 +87,9 @@ export const GameRunner: FC<GameRunnerProps> = () => {
             ? <PlayIcon className={iconClassName} />
             : <PauseIcon className={iconClassName} />
         }
-        { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
+        <Typography>
+          { gameStatus === GameStatus.paused ? 'Play' : 'Pause' }
+        </Typography>
       </Button>
     </div>
   );

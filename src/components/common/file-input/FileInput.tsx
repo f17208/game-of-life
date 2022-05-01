@@ -1,6 +1,7 @@
 import { FC, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { FileUploadIcon } from '../icons';
 
-import { ReactComponent as FileUploadIcon } from '../../assets/file-upload.svg';
+import { Typography } from '../typography/Typography';
 
 interface FileInputProps extends DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -21,7 +22,7 @@ export const FileInput: FC<FileInputProps> = ({ className, disabled, ...inputPro
       `}
     >
       <FileUploadIcon className="h-6" />
-      <span>Select a file</span>
+      <Typography>Select a file</Typography>
       <input type="file" className="hidden" {...inputProps} disabled={disabled} />
     </label>
   );

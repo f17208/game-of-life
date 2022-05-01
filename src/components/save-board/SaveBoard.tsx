@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { getBoardDimensions } from '../../utils/game-of-life';
 import { boardToFileContent } from '../../utils/save-board-to-file';
 
-import { ReactComponent as DownloadIcon } from '../assets/file-download.svg';
 import { CellStatus } from '../cell/Cell';
 import { Button, ButtonProps } from '../common/button/Button';
+import { DownloadIcon } from '../common/icons';
 
 export interface SaveBoardProps extends Omit<ButtonProps, 'onClick'> {
   cells: CellStatus[][];
@@ -32,6 +32,6 @@ export const SaveBoard: FC<SaveBoardProps> = ({ cells, generationCount = 0, ...b
 
   return <Button onClick={downloadTxtFile} {...buttonProps}>
     <DownloadIcon className="fill-white h-6" />
-    <span>Save</span>
+    <span className="hidden md:block">Save</span>
   </Button>;
 };

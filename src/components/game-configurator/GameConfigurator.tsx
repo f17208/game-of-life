@@ -25,6 +25,8 @@ import { loadFromFileContent } from '../../utils/load-cells-from-file';
 import { Button } from '../common/button/Button';
 import { FileInput } from '../common/file-input/FileInput';
 import { Input } from '../common/input/Input';
+import { Typography } from '../common/typography/Typography';
+import { PlayIcon } from '../common/icons';
 
 type UpdateDimensionsProps = {
   rows?: number;
@@ -93,7 +95,7 @@ export const GameConfigurator: FC = () => {
     <div className="container">
       <div className="space-y-2">
         <div className="flex items-center space-x-4 justify-between">
-          <span>Load configuration from file</span>
+          <Typography>Load configuration from file</Typography>
           <FileInput
             id="upload-config-input"
             onChange={onFileChange}
@@ -103,7 +105,7 @@ export const GameConfigurator: FC = () => {
         </div>
 
         <div className="flex items-center space-x-4 justify-between">
-          <span>Board dimensions (min {MIN_ROWS_COUNT}x{MIN_COLUMNS_COUNT})</span>
+          <Typography>Board dimensions (min {MIN_ROWS_COUNT}x{MIN_COLUMNS_COUNT})</Typography>
           <span className="flex space-x-1">
             <Input
               id="configure-rows-input"
@@ -113,7 +115,7 @@ export const GameConfigurator: FC = () => {
               onChange={e => updateDimensions({ rows: +e.target.value })}
               style={{ maxWidth: 55, textAlign: 'center' }}
             />
-            <span>x</span>
+            <Typography>x</Typography>
             <Input
               id="configure-columns-input"
               type="number"
@@ -127,7 +129,7 @@ export const GameConfigurator: FC = () => {
         </div>
 
         <div className="flex items-center space-x-4 justify-between">
-          <span>Start from generation #</span>
+          <Typography>Start from generation #</Typography>
           <span className="flex space-x-1">
             <Input
               id="configure-generations-input"
@@ -141,7 +143,7 @@ export const GameConfigurator: FC = () => {
         </div>
 
         <div className="flex items-center space-x-4 justify-between">
-          <span>Update every:</span>
+          <Typography>Update every:</Typography>
           <span className="flex items-center space-x-4">
             <Input
               id="configure-update-ms-input"
@@ -160,7 +162,7 @@ export const GameConfigurator: FC = () => {
 
         <div className="flex justify-between space-x-4 items-center">
           <div className="flex space-x-4 items-center">
-            <span>Enable autoplay</span>
+            <Typography>Enable autoplay</Typography>
             <Input
               id="configure-autoplay-input"
               type="checkbox"
@@ -170,8 +172,12 @@ export const GameConfigurator: FC = () => {
             />
           </div>
           <div>
-            <Button disabled={!canStartGame} onClick={onStartGame}>
-              Start game!
+            <Button
+              disabled={!canStartGame}
+              onClick={onStartGame}
+            >
+              <PlayIcon className="h-4 w-fit fill-white" />
+              <Typography>Play Game!</Typography>
             </Button>
           </div>
         </div>

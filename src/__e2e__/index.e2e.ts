@@ -153,3 +153,15 @@ test('should download configuration', async ({ page }) => {
 
   await page.locator('#save-board-button').click();
 });
+
+test('should ask for confirm on reset', async ({ page }) => {
+  await page.goto(APP_URL);
+  const expectedMessage = 'Are you sure you want to reset?';
+
+  page.on('dialog', async (dialog) => {
+    expect(dialog.message()).toEqual(expectedMessage);
+    await dialog.accept();
+  });
+
+  await page.locator('#reset-button').click();
+});
