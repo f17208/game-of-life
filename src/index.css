@@ -545,6 +545,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.25rem !important;
 }
 
+.w-fit {
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+}
+
 .w-40 {
   width: 10rem !important;
 }
@@ -553,8 +559,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 28rem !important;
 }
 
-.max-w-lg {
-  max-width: 32rem !important;
+.max-w-2xl {
+  max-width: 42rem !important;
 }
 
 .cursor-not-allowed {
@@ -589,6 +595,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse)) !important;
 }
 
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0 !important;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse)) !important;
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse))) !important;
+}
+
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0 !important;
   margin-right: calc(0.25rem * var(--tw-space-x-reverse)) !important;
@@ -605,12 +617,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-x-reverse: 0 !important;
   margin-right: calc(1rem * var(--tw-space-x-reverse)) !important;
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse))) !important;
-}
-
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0 !important;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse)) !important;
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse))) !important;
 }
 
 .overflow-x-auto {
@@ -666,12 +672,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(239 68 68 / var(--tw-bg-opacity)) !important;
 }
 
-.fill-primary {
-  fill: #00b0fe !important;
-}
-
 .fill-white {
   fill: #fff !important;
+}
+
+.fill-primary {
+  fill: #00b0fe !important;
 }
 
 .p-6 {
@@ -695,6 +701,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pt-2 {
   padding-top: 0.5rem !important;
+}
+
+.pb-4 {
+  padding-bottom: 1rem !important;
 }
 
 .text-3xl {
@@ -777,4 +787,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .disabled\:opacity-50:disabled {
   opacity: 0.5 !important;
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block !important;
+  }
 }

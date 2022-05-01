@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
 import { MAX_CELL_SIZE, MIN_CELL_SIZE, STEP_CELL_SIZE } from '../../utils/constants';
+import { ZoomIcon } from '../common/icons';
 import { Input } from '../common/input/Input';
-
-import { ReactComponent as ZoomIcon } from '../assets/zoom.svg';
 
 export type ZoomBoardProps = {
   cellSize: number;

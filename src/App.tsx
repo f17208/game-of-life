@@ -18,12 +18,11 @@ import { Board } from './components/board/Board';
 import './App.css';
 
 import { CellPosition, CellStatus } from './components/cell/Cell';
-import { H4 } from './components/common/headings/h4';
-import { H3 } from './components/common/headings/h3';
+import { Typography } from './components/common/typography/Typography';
 import { ZoomBoard } from './components/board/ZoomBoard';
 import { Button } from './components/common/button/Button';
 import { SaveBoard } from './components/save-board/SaveBoard';
-import { ReactComponent as ClearIcon } from './components/assets/clear.svg';
+import { ClearIcon } from './components/common/icons';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,13 +51,13 @@ function App() {
     <div className="p-6 space-y-5 h-full">
       <div className="space-y-1">
         <div className="flex justify-center">
-          <H3>Game of Life</H3>
+          <Typography variant="h3">Game of Life</Typography>
         </div>
         <div className="flex justify-center">
           {
             gameStatus === GameStatus.stopped
-              ? <H4>Setup Board</H4>
-              : <H4>Generation #{generationCount}</H4>
+              ? <Typography variant="h4">Setup Board</Typography>
+              : <Typography variant="h4">Generation #{generationCount}</Typography>
           }
         </div>
       </div>
@@ -81,7 +80,7 @@ function App() {
               onClickCell={onClickCell}
             />
             <div className="max-w-2xl mx-auto">
-              <div className="flex items-center justify-between pt-2">
+              <div className="flex items-center justify-between pt-2 pb-4">
                 <ZoomBoard
                   cellSize={cellSize}
                   onChangeCellSize={newValue => dispatch(setCellSize(newValue))}
@@ -94,7 +93,7 @@ function App() {
                     onClick={onConfirmReset}
                   >
                     <ClearIcon className="h-6 w-fit fill-white" />
-                    <span className="hidden md:block">Reset Game</span>
+                    <Typography className="hidden md:block">Reset Game</Typography>
                   </Button>
 
                   <SaveBoard

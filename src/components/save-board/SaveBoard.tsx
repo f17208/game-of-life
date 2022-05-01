@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { getBoardDimensions } from '../../utils/game-of-life';
 import { boardToFileContent } from '../../utils/save-board-to-file';
 
-import { ReactComponent as DownloadIcon } from '../assets/file-download.svg';
 import { CellStatus } from '../cell/Cell';
 import { Button, ButtonProps } from '../common/button/Button';
+import { DownloadIcon } from '../common/icons';
 
 export interface SaveBoardProps extends Omit<ButtonProps, 'onClick'> {
   cells: CellStatus[][];

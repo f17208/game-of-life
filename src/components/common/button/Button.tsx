@@ -23,6 +23,7 @@ export const Button: FC<ButtonProps> = ({ children, className, variant = 'info',
         px-4 py-1
         rounded-lg
         flex space-x-2 items-center
+        ${className || ''}
       `}
       {...rest}
     >
