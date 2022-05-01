@@ -25,6 +25,7 @@ export const Board: FC<BoardProps> = ({
         {
           cells.map((row, x) => {
             return <div
+              className="Board-row"
               key={`row-${x}`}
               style={{ height: cellSize }}
             >

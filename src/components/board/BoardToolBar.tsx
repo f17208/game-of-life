@@ -39,7 +39,11 @@ export const BoardToolBar: FC<BoardToolBarProps> = ({
 
       {generationCount !== undefined && (
         <div className="flex space-x-2 items-center">
-          <SaveBoard cells={cells} generationCount={generationCount} />
+          <SaveBoard
+            id="save-board-button"
+            cells={cells}
+            generationCount={generationCount}
+          />
         </div>
       )}
     </div>

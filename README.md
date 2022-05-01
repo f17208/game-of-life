@@ -11,9 +11,11 @@ You can use both Yarn or Npm for installation, execution, testing and running ot
 
 `yarn install`: installs `node_modules`.
 
-`yarn start`: runs the app on localhost:3000.
+`yarn start`: runs the app on localhost.
 
-`yarn test`: runs all tests.
+`yarn test:e2e`: runs e2e tests only. Before running this script, there must be a running instance of the React app on localhost.
+
+`yarn test`: runs all tests but e2e. Does not require a running instance of the app.
 
 
 ## Other scripts
