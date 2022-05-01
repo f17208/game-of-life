@@ -15,9 +15,9 @@ function streamToString(stream: any) {
     stream.on('end', () => resolve(
       Buffer
         .concat(chunks)
-        .toString('utf8') as string
+        .toString('utf8') as string,
     ));
-  })
+  });
 }
 
 dotenv.config();
@@ -42,7 +42,7 @@ test('should correctly set generation', async ({ page }) => {
 
   await page.fill('#configure-generations-input', '157');
 
-  const generationValue = await page.inputValue('#configure-generations-input')
+  const generationValue = await page.inputValue('#configure-generations-input');
 
   expect(generationValue).toBe('157');
 });
@@ -50,12 +50,12 @@ test('should correctly set generation', async ({ page }) => {
 test('should correctly upload a configuration file', async ({ page }) => {
   await page.goto(APP_URL);
 
-  const configFilePath = path.resolve(__dirname, "../data/sample-1.txt");
+  const configFilePath = path.resolve(__dirname, '../data/sample-1.txt');
 
   const fileContent = readFileSync(configFilePath);
   const gameConfig = loadFromFileContent(fileContent.toString());
 
-  const  { 
+  const {
     dimensions: {
       rowsCount,
       columnsCount,
@@ -67,23 +67,23 @@ test('should correctly upload a configuration file', async ({ page }) => {
 
   const rows = await page.$$('.Board-row');
   const cells = await page.$$('.Cell');
-  const generationValue = await page.inputValue('#configure-generations-input')
+  const generationValue = await page.inputValue('#configure-generations-input');
 
   expect(rows.length).toBe(rowsCount);
   expect(cells.length).toBe(rowsCount * columnsCount);
-  expect(generationValue).toBe(generation.toString())
+  expect(generationValue).toBe(generation.toString());
 });
 
 test('should alert error: invalid rows/columns (1)', async ({ page }) => {
   await page.goto(APP_URL);
 
-  const configFilePath = path.resolve(__dirname, "../data/sample-error-1.txt");
+  const configFilePath = path.resolve(__dirname, '../data/sample-error-1.txt');
   const expectedMessage = 'Invalid columns in configuration: expected columnsCount 17, found 16, at line number 0';
 
   page.on('dialog', async (dialog) => {
-    expect(dialog.message()).toEqual(expectedMessage)
-    await dialog.accept()
-  })
+    expect(dialog.message()).toEqual(expectedMessage);
+    await dialog.accept();
+  });
 
   await page.setInputFiles('#upload-config-input', [configFilePath]);
   await page.inputValue('#upload-config-input');
@@ -92,13 +92,13 @@ test('should alert error: invalid rows/columns (1)', async ({ page }) => {
 test('should alert error: invalid rows/columns (2)', async ({ page }) => {
   await page.goto(APP_URL);
 
-  const configFilePath = path.resolve(__dirname, "../data/sample-error-2.txt");
+  const configFilePath = path.resolve(__dirname, '../data/sample-error-2.txt');
   const expectedMessage = 'Invalid columns in configuration: expected columnsCount 16, found 17, at line number 1';
 
   page.on('dialog', async (dialog) => {
-    expect(dialog.message()).toEqual(expectedMessage)
-    await dialog.accept()
-  })
+    expect(dialog.message()).toEqual(expectedMessage);
+    await dialog.accept();
+  });
 
   await page.setInputFiles('#upload-config-input', [configFilePath]);
   await page.inputValue('#upload-config-input');
@@ -107,13 +107,13 @@ test('should alert error: invalid rows/columns (2)', async ({ page }) => {
 test('should alert error: configuration with an invalid symbol', async ({ page }) => {
   await page.goto(APP_URL);
 
-  const configFilePath = path.resolve(__dirname, "../data/sample-error-3.txt");
+  const configFilePath = path.resolve(__dirname, '../data/sample-error-3.txt');
   const expectedMessage = 'Invalid symbol in configuration: expected "*", "." or " ", found "A", at line number 4, position 8';
 
   page.on('dialog', async (dialog) => {
-    expect(dialog.message()).toEqual(expectedMessage)
-    await dialog.accept()
-  })
+    expect(dialog.message()).toEqual(expectedMessage);
+    await dialog.accept();
+  });
 
   await page.setInputFiles('#upload-config-input', [configFilePath]);
   await page.inputValue('#upload-config-input');
@@ -122,13 +122,13 @@ test('should alert error: configuration with an invalid symbol', async ({ page }
 test('should alert error: invalid generation', async ({ page }) => {
   await page.goto(APP_URL);
 
-  const configFilePath = path.resolve(__dirname, "../data/sample-error-4.txt");
+  const configFilePath = path.resolve(__dirname, '../data/sample-error-4.txt');
   const expectedMessage = 'Invalid generation in configuration';
 
   page.on('dialog', async (dialog) => {
-    expect(dialog.message()).toEqual(expectedMessage)
-    await dialog.accept()
-  })
+    expect(dialog.message()).toEqual(expectedMessage);
+    await dialog.accept();
+  });
 
   await page.setInputFiles('#upload-config-input', [configFilePath]);
   await page.inputValue('#upload-config-input');
@@ -137,7 +137,7 @@ test('should alert error: invalid generation', async ({ page }) => {
 test('should download configuration', async ({ page }) => {
   await page.goto(APP_URL);
 
-  const configFilePath = path.resolve(__dirname, "../data/sample-1.txt");
+  const configFilePath = path.resolve(__dirname, '../data/sample-1.txt');
   await page.setInputFiles('#upload-config-input', [configFilePath]);
 
   const fileContent = readFileSync(configFilePath).toString();

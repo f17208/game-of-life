@@ -10,11 +10,11 @@ import { loadFromFileContent } from '../utils/load-cells-from-file';
 
 test('should update the state correctly', () => {
   // this will be our previous state configuration
-  const sampleData1 = readFileSync(path.resolve(__dirname, "../data/sample-1.txt")).toString();
+  const sampleData1 = readFileSync(path.resolve(__dirname, '../data/sample-1.txt')).toString();
   const config1 = loadFromFileContent(sampleData1);
 
   // this will be our next state configuration
-  const sampleData2 = readFileSync(path.resolve(__dirname, "../data/sample-2.txt")).toString();
+  const sampleData2 = readFileSync(path.resolve(__dirname, '../data/sample-2.txt')).toString();
   const config2 = loadFromFileContent(sampleData2);
 
   const previousState: GameConfig = {
@@ -31,7 +31,7 @@ test('should update the state correctly', () => {
     ...previousState,
     cells: config2.cells,
     generationCount: config2.generation,
-  }
+  };
 
   // now we calculate the actual next state
   const newState = reducer(previousState, nextState());
@@ -41,33 +41,33 @@ test('should update the state correctly', () => {
 });
 
 test('should detect invalid columns in configuration (1)', () => {
-  const sampleData = readFileSync(path.resolve(__dirname, "../data/sample-error-1.txt")).toString();
+  const sampleData = readFileSync(path.resolve(__dirname, '../data/sample-error-1.txt')).toString();
   const expectedMessage = 'Invalid columns in configuration: expected columnsCount 17, found 16, at line number 0';
 
   expect(() => loadFromFileContent(sampleData))
-    .toThrow(expectedMessage)
+    .toThrow(expectedMessage);
 });
 
 test('should detect invalid columns in configuration (2)', () => {
-  const sampleData = readFileSync(path.resolve(__dirname, "../data/sample-error-2.txt")).toString();
+  const sampleData = readFileSync(path.resolve(__dirname, '../data/sample-error-2.txt')).toString();
   const expectedMessage = 'Invalid columns in configuration: expected columnsCount 16, found 17, at line number 1';
 
   expect(() => loadFromFileContent(sampleData))
-    .toThrow(expectedMessage)
+    .toThrow(expectedMessage);
 });
 
 test('should detect invalid symbol in configuration', () => {
-  const sampleData = readFileSync(path.resolve(__dirname, "../data/sample-error-3.txt")).toString();
+  const sampleData = readFileSync(path.resolve(__dirname, '../data/sample-error-3.txt')).toString();
   const expectedMessage = 'Invalid symbol in configuration: expected "*", "." or " ", found "A", at line number 4, position 8';
 
   expect(() => loadFromFileContent(sampleData))
-    .toThrow(expectedMessage)
+    .toThrow(expectedMessage);
 });
 
 test('should detect invalid generation in configuration', () => {
-  const sampleData = readFileSync(path.resolve(__dirname, "../data/sample-error-4.txt")).toString();
+  const sampleData = readFileSync(path.resolve(__dirname, '../data/sample-error-4.txt')).toString();
   const expectedMessage = 'Invalid generation in configuration';
 
   expect(() => loadFromFileContent(sampleData))
-    .toThrow(expectedMessage)
+    .toThrow(expectedMessage);
 });
