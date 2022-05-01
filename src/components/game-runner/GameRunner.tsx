@@ -49,10 +49,10 @@ export const GameRunner: FC<GameRunnerProps> = () => {
   // eslint-disable-next-line no-undef
   const updateInterval = useRef<NodeJS.Timer | null>(null);
   useEffect(() => {
+    if (updateInterval.current) {
+      clearInterval(updateInterval.current);
+    }
     if (isPlaying) {
-      if (updateInterval.current) {
-        clearInterval(updateInterval.current);
-      }
       updateInterval.current = setInterval(() => {
         onNextState();
       }, updateEveryMs);

@@ -541,6 +541,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.5rem !important;
 }
 
+.h-4 {
+  height: 1rem !important;
+}
+
 .h-5 {
   height: 1.25rem !important;
 }
@@ -723,6 +727,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .font-medium {
   font-weight: 500 !important;
+}
+
+.font-light {
+  font-weight: 300 !important;
 }
 
 .leading-tight {
