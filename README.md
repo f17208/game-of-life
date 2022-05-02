@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Note to reviewers
+
+For this kind of application it would have been appropriate to use a canvas. I decided not to use it, in order to develop everything with React components, rendering basic HTML tags (such as div, span, input, etc.) and styling them with CSS (pure CSS and Tailwind), so the final result is something more similar to a standard Front End project.
+
+All icons were made with [Affinity Designer](https://affinity.serif.com/it/designer).
+
 ## Running the project locally
 
 `yarn install`: installs `node_modules`.

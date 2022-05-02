@@ -21,7 +21,7 @@ export const FileInput: FC<FileInputProps> = ({ className, disabled, ...inputPro
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-secondary'}
       `}
     >
-      <FileUploadIcon className="h-6" />
+      <FileUploadIcon className="h-6 fill-white w-fit" />
       <Typography>Select a file</Typography>
       <input type="file" className="hidden" {...inputProps} disabled={disabled} />
     </label>
