@@ -11,6 +11,7 @@ import {
   reset,
   setCellSize,
   setIntoCell,
+  setStatus,
   statusSelector,
 } from './components/game-state/GameState.slice';
 import { Board } from './components/board/Board';
@@ -34,13 +35,18 @@ function App() {
   const areCellsConfigured = useSelector(areCellsConfiguredSelector);
 
   const onClickCell = useCallback((position: CellPosition, status: CellStatus) => {
+    if (gameStatus === GameStatus.playing) {
+      dispatch(setStatus(GameStatus.paused));
+    }
     dispatch(setIntoCell({ position, status }));
-  }, [dispatch]);
+  }, [dispatch, gameStatus]);
 
   const onConfirmReset = useCallback(() => {
     /**
-     * ask for confirm before actually reset state.
-     * NOTE: confirm is blocking, so we don't have to pause the game explicitly.
+     * Ask for confirm before actually resetting state.
+     * NOTE: window.confirm is blocking, so we don't have to pause the game explicitly.
+     * Should you replace window.confirm with a custom dialog, you'll probably want
+     * to pause the game before asking confirm.
      */
     if (window.confirm('Are you sure you want to reset?')) {
       dispatch(reset());
@@ -51,7 +57,7 @@ function App() {
     <div className="p-6 space-y-5 h-full">
       <div className="space-y-1">
         <div className="flex justify-center">
-          <Typography variant="h3">Game of Life</Typography>
+          <Typography variant="h2">Game of Life</Typography>
         </div>
         <div className="flex justify-center">
           {

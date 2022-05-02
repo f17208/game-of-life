@@ -144,7 +144,7 @@ export const GameConfigurator: FC = () => {
 
         <div className="flex items-center space-x-4 justify-between">
           <Typography>Update every:</Typography>
-          <span className="flex items-center space-x-4">
+          <span className="flex items-center space-x-2">
             <Input
               id="configure-update-ms-input"
               type="range"

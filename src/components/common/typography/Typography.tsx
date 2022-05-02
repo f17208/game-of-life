@@ -1,51 +1,52 @@
-import { FC, DetailedHTMLProps, HTMLAttributes } from 'react';
+import { FC, DetailedHTMLProps, HTMLAttributes, createElement } from 'react';
 
 interface TypographyProps extends DetailedHTMLProps<
-  HTMLAttributes<HTMLHeadingElement>,
-  HTMLHeadingElement
+  HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement>,
+  HTMLParagraphElement | HTMLHeadingElement
 > {
-  variant?: 'h3' | 'h4'; // TODO add more
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+}
+
+function getTypographyClassName(variant: TypographyProps['variant']) {
+  switch (variant) {
+    case 'h1': return `
+      font-bold text-5xl
+      mt-0 mb-2
+      text-primary
+    `;
+    case 'h2': return `
+      font-bold text-4xl
+      mt-0 mb-2
+      text-primary
+    `;
+    case 'h3': return `
+      font-bold text-3xl
+      mt-0 mb-2
+      text-primary
+    `;
+    case 'h4': return `
+      font-medium text-xl
+      leading-tight
+      text-gray-500
+    `;
+    default: return `
+      font-light
+    `;
+  }
 }
 
 export const Typography: FC<TypographyProps> = ({
-  variant = 'subtitle1',
+  variant = 'p',
   children,
   className,
   ...props
 }) => {
-  if (variant === 'h3') {
-    return (
-      <h3
-        className={`
-        font-bold text-3xl
-        mt-0 mb-2
-        text-primary
-        ${className || ''}
-      `}
-        {...props}
-      >
-        {children}
-      </h3>
-    );
-  }
-  if (variant === 'h4') {
-    return <h4
-      className={`
-        font-medium text-xl
-        leading-tight
-        text-gray-500
-        ${className || ''}
-      `}
-      {...props}
-    >
-      {children}
-    </h4>;
-  }
-
-  return <p
-    className={`font-light ${className}`}
-    {...props}
-  >
-    {children}
-  </p>;
+  return createElement(
+    variant,
+    {
+      ...props,
+      className: `${getTypographyClassName(variant)} ${className}`,
+    },
+    children,
+  );
 };
